@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import "./App.css";
-import HomePage from "./components/HomePage";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
 
 const App = () => {
   return (
@@ -9,6 +10,9 @@ const App = () => {
       <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />} />
+          </Routes>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
           </Routes>
       </BrowserRouter>
     </div>
