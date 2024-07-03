@@ -3,10 +3,23 @@ import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import "./App.css";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import { styled, ThemeProvider, createTheme } from '@mui/material/styles'; 
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#3f51b5', // Example primary color
+    },
+    secondary: {
+      main: '#f50057', // Example secondary color
+    },
+  },
+});
+
 
 const App = () => {
   return (
-    <div className="app">
+    <ThemeProvider theme={theme}>
       <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -15,7 +28,7 @@ const App = () => {
             <Route path="/login" element={<LoginPage />} />
           </Routes>
       </BrowserRouter>
-    </div>
+    </ThemeProvider>
   );
 };
 

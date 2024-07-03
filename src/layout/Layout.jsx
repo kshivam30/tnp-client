@@ -46,7 +46,7 @@ const Layout = ({ children }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            My Website
+            BIT Training and Placement Cell
           </Typography>
         </Toolbar>
       </AppBar>
@@ -66,7 +66,7 @@ const Layout = ({ children }) => {
       </Box>
       <Box component="footer" sx={{ p: 2, backgroundColor: '#f8f9fa', textAlign: 'center' }}>
         <Typography variant="body2" color="text.secondary">
-          © 2024 My Website. All rights reserved.
+          © 2024 TNP - BIT. All rights reserved.
         </Typography>
       </Box>
     </Box>

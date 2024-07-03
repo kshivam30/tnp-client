@@ -1,35 +1,71 @@
+// src/components/HomePage.js
 import React from 'react';
+import { Box, Card, CardContent, Typography, Grid, Avatar } from '@mui/material';
+import { styled, ThemeProvider, createTheme } from '@mui/material/styles'; 
 import Layout from '../layout/Layout';
-import ProfileCard from '../components/ProfileCard';
-import KeyValueCard from '../components/KeyValueCard';
+
+const StatCard = styled(Card)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.common.white,
+  padding: theme.spacing(2),
+  textAlign: 'center',
+}));
 
 const HomePage = () => {
   const profile = {
     name: "John Doe",
     avatarUrl: "https://via.placeholder.com/150",
-    description: "Software Engineer"
+    description: "Software Engineer",
   };
 
-  const keyValueData = [
-    { key: "Email", value: "john.doe@example.com" },
-    { key: "Phone", value: "(123) 456-7890" },
-    { key: "Location", value: "San Francisco, CA" }
+  const stats = [
+    { label: "Jobs Applied", value: 50 },
+    { label: "Placed", value: 10 },
+    { label: "Rejections", value: 30 },
+    { label: "Waiting", value: 10 },
   ];
 
   return (
     <Layout>
-      <div>
-        <h1>Welcome to the Home Page</h1>
-        <ProfileCard 
-          name={profile.name} 
-          avatarUrl={profile.avatarUrl} 
-          description={profile.description} 
-        />
-        <KeyValueCard data={keyValueData} />
-      </div>
+      <Box sx={{ flexGrow: 1, p: 3 }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={4}>
+            <Card sx={{ textAlign: 'center', padding: 3 }}>
+              <Avatar
+                alt={profile.name}
+                src={profile.avatarUrl}
+                sx={{ width: 100, height: 100, margin: 'auto' }}
+              />
+              <CardContent>
+                <Typography variant="h5" component="div" gutterBottom>
+                  {profile.name}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  {profile.description}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <Grid container spacing={3}>
+              {stats.map((stat, index) => (
+                <Grid item xs={12} sm={6} key={index}>
+                  <StatCard>
+                    <Typography variant="h4" component="div" gutterBottom>
+                      {stat.value}
+                    </Typography>
+                    <Typography variant="body1">
+                      {stat.label}
+                    </Typography>
+                  </StatCard>
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+        </Grid>
+      </Box>
     </Layout>
   );
 };
 
 export default HomePage;
-
