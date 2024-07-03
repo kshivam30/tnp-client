@@ -10,7 +10,20 @@ import { Link } from 'react-router-dom';
 
 const Menu = ({ open, onClose }) => {
   return (
-    <Drawer anchor="left" open={open} onClose={onClose}>
+    <Drawer
+      variant="persistent"
+      anchor="left"
+      open={open}
+      onClose={onClose}
+      sx={{
+        width: 240,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: 240,
+          boxSizing: 'border-box',
+        },
+      }}
+    >
       <List>
         <ListItem button component={Link} to="/" onClick={onClose}>
           <ListItemIcon><HomeIcon /></ListItemIcon>
