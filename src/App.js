@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import { styled, ThemeProvider, createTheme } from '@mui/material/styles'; 
 import JobsPage from "./pages/JobsPage";
+import HelpPage from "./pages/HelpPage";
 
 const theme = createTheme({
   palette: {
@@ -30,6 +31,9 @@ const App = () => {
           </Routes>
           <Routes>
             <Route path="/jobs" element={<JobsPage />} />
+          </Routes>
+          <Routes>
+            <Route path="/help" element={<HelpPage />} />
           </Routes>
       </BrowserRouter>
     </ThemeProvider>
