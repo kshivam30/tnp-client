@@ -30,10 +30,6 @@ const Menu = ({ open, onClose }) => {
           <ListItemIcon><WorkIcon /></ListItemIcon>
           <ListItemText primary="Jobs" />
         </ListItem>
-        <ListItem component={Link} to="/login" onClick={onClose}>
-          <ListItemIcon><LogoutIcon/></ListItemIcon>
-          <ListItemText primary="Logout" />
-        </ListItem>
         <ListItem component={Link} to="/help" onClick={onClose}>
           <ListItemIcon><HelpIcon/></ListItemIcon>
           <ListItemText primary="Help" />
@@ -42,7 +38,10 @@ const Menu = ({ open, onClose }) => {
           <ListItemIcon><WorkIcon/></ListItemIcon>
           <ListItemText primary="Add Job" />
         </ListItem>
-        {/* Add more menu items as needed */}
+        <ListItem component={Link} to="/login" onClick={onClose}>
+          <ListItemIcon><LogoutIcon/></ListItemIcon>
+          <ListItemText primary="Logout" />
+        </ListItem>
       </List>
     </Drawer>
   );
