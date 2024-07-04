@@ -1,4 +1,3 @@
-// AiHelp.js
 import React, { useState, useEffect, useRef } from 'react';
 import { Box, Typography, Card, CardContent, Avatar, TextField, Button } from '@mui/material';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
@@ -54,7 +53,7 @@ const summarizeCompanyData = (companyData) => {
 const companySummary = summarizeCompanyData(companyData);
 
 const HelpPage = () => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([{ id: 0, sender: 'Support Bot', text: 'Hey "username", how can I help you?', type: 'bot' }]);
   const [input, setInput] = useState('');
   const messagesEndRef = useRef(null);
 
@@ -65,7 +64,6 @@ const HelpPage = () => {
     setMessages(newMessages);
     setInput('');
 
-    // Mock AI response (replace with actual API call)
     const aiResponse = await getAiResponse(input);
     setMessages((prevMessages) => [
       ...prevMessages,
@@ -73,15 +71,21 @@ const HelpPage = () => {
     ]);
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSend();
+    }
+  };
+
   const getAiResponse = async (query) => {
     const prompt = `
-    Act as a chatbot integrated into a training and placement center of a college. You will be given a summary of company details that have come for placement. Answer the questions based on this information. Provide short, concise, and to-the-point answers.
-  
-    Company data: ${companySummary}
-  
-    Query: ${query}
-  `;
-const result = await model.generateContent(prompt);
+      Act as a chatbot integrated into a training and placement center of a college. You will be given a summary of company details that have come for placement. Answer the questions based on this information. Provide short, concise, and to-the-point answers.
+
+      Company data: ${companySummary}
+
+      Query: ${query}
+    `;
+    const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
     return text;
@@ -136,6 +140,7 @@ const result = await model.generateContent(prompt);
             fullWidth
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyPress={handleKeyPress}
             placeholder="Type your query..."
           />
           <Button variant="contained" color="primary" onClick={handleSend} sx={{ marginLeft: '10px' }}>
