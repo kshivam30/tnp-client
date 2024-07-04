@@ -1,6 +1,5 @@
-// src/pages/LoginPage.js
 import React, { useState } from 'react';
-import { TextField, Button, Container, Typography, Box, Link, Alert } from '@mui/material';
+import { TextField, Button, Container, Typography, Box, Link, Alert, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser, setRole } from '../state'; 
@@ -9,11 +8,14 @@ const LoginPage = () => {
     const [isSignUp, setIsSignUp] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [role, setRole] = useState('');
+    const [registrationNumber, setRegistrationNumber] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         setError('');
 
@@ -28,17 +30,74 @@ const LoginPage = () => {
             return;
         }
 
-        let role = 'User';
-        if (email === 'admin@gmail.com') {
-            role = 'Admin';
-        } else if (email === 'user@gmail.com') {
-            role = 'User';
+        if (isSignUp) {
+            const confirmPassword = event.target.confirmPassword.value;
+            if (password !== confirmPassword) {
+                setError('Passwords do not match');
+                return;
+            }
+
+            if (!role) {
+                setError('Role is required');
+                return;
+            }
+
+            if (!registrationNumber) {
+                setError('Registration number is required');
+                return;
+            }
+
+            // Signup logic
+            const signupData = { email, password, name, role, registrationNumber };
+            try {
+                const response = await fetch('http://your-backend-api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(signupData),
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to sign up');
+                }
+
+                const data = await response.json();
+                dispatch(setUser(email));
+                dispatch(setRole(role));
+                navigate('/');
+            } catch (error) {
+                setError(error.message);
+            }
+        } else {
+            // Login logic
+            const loginData = { email, password };
+            try {
+                const response = await fetch('http://your-backend-api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(loginData),
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to sign in');
+                }
+
+                const data = await response.json();
+                let role = 'User';
+                if (data.email === 'admin@gmail.com') {
+                    role = 'Admin';
+                } else if (data.email === 'user@gmail.com') {
+                    role = 'User';
+                }
+
+                dispatch(setUser(email));
+                dispatch(setRole(role));
+                navigate('/');
+            } catch (error) {
+                setError(error.message);
+            }
         }
-
-        dispatch(setUser(email));
-        dispatch(setRole(role));
-
-        navigate('/');
     };
 
     const toggleSignUp = () => {
@@ -62,16 +121,49 @@ const LoginPage = () => {
                 {error && <Alert severity="error" sx={{ mt: 2, width: '100%' }}>{error}</Alert>}
                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     {isSignUp && (
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="name"
-                            label="Name"
-                            name="name"
-                            autoComplete="name"
-                            autoFocus
-                        />
+                        <>
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="name"
+                                label="Name"
+                                name="name"
+                                autoComplete="name"
+                                autoFocus
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                            <Box sx={{ display: 'flex', gap: 2 }}>
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    select
+                                    id="role"
+                                    label="Role"
+                                    name="role"
+                                    value={role}
+                                    onChange={(e) => setRole(e.target.value)}
+                                    sx={{ flex: 1 }}
+                                >
+                                    <MenuItem value="Student">Student</MenuItem>
+                                    <MenuItem value="Admin">Admin</MenuItem>
+                                </TextField>
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="registrationNumber"
+                                    label="Registration Number"
+                                    name="registrationNumber"
+                                    autoComplete="registration-number"
+                                    value={registrationNumber}
+                                    onChange={(e) => setRegistrationNumber(e.target.value)}
+                                    sx={{ flex: 1 }}
+                                />
+                            </Box>
+                        </>
                     )}
                     <TextField
                         margin="normal"

@@ -17,7 +17,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
 
 const StatusButton = styled(Button)(({ theme, applied }) => ({
   backgroundColor: applied ? theme.palette.primary.main : theme.palette.error.main,
-  color:  theme.palette.common.white,
+  color: theme.palette.common.white,
   borderRadius: theme.shape.borderRadius,
   padding: theme.spacing(0.5, 1),
   textTransform: 'none',
@@ -26,7 +26,7 @@ const StatusButton = styled(Button)(({ theme, applied }) => ({
   textOverflow: 'ellipsis',
   '&:hover': {
     backgroundColor: "white",
-    color: applied? '#1976d2': "red", // Light blue color on hover
+    color: applied ? '#1976d2' : "red", // Light blue color on hover
   },
 }));
 
@@ -38,17 +38,16 @@ const RegularOfferBanner = styled(Box)(({ theme }) => ({
 }));
 
 const JobCard = ({
-  jobTitle,
   companyName,
-  logoUrl,
-  location,
+  CTC,
+  DOA,
+  eligibleAbove,
+  Applied,
+  logo,
+  jobTitle,
   jobType,
-  role,
-  salary,
-  roundDate,
-  applied,
 }) => {
-  const [isApplied, setIsApplied] = useState(applied);
+  const [isApplied, setIsApplied] = useState(Applied);
 
   const handleToggleApply = () => {
     setIsApplied(!isApplied);
@@ -59,9 +58,9 @@ const JobCard = ({
       <CardContent>
         <Grid container spacing={2}>
           <Grid item xs={2} display="flex" justifyContent="center" alignItems="center">
-            {logoUrl ? (
+            {logo ? (
               <img
-                src={logoUrl}
+                src={logo}
                 alt={`${companyName} logo`}
                 style={{ width: 50, height: 50, borderRadius: '50%' }}
               />
@@ -73,7 +72,7 @@ const JobCard = ({
             <Typography variant="h6">{companyName}</Typography>
           </Grid>
           <Grid item xs={4} display="flex" justifyContent="flex-end" alignItems="center">
-            <StatusButton sx={{ }} applied={isApplied} onClick={handleToggleApply} fullWidth>
+            <StatusButton applied={isApplied} onClick={handleToggleApply} fullWidth>
               {isApplied ? 'Applied' : 'Not Applied'}
             </StatusButton>
           </Grid>
@@ -82,9 +81,9 @@ const JobCard = ({
           {jobTitle}
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
-          <LocationOnIcon fontSize="small" color="primary" />
+          <MonetizationOnIcon fontSize="small" color="primary" />
           <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>
-            {location}
+            {CTC}
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
@@ -94,23 +93,15 @@ const JobCard = ({
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
-          <Typography variant="body2" color="text.secondary">
-            {role}
+          <DateRangeIcon fontSize="small" color="primary" />
+          <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>
+            {DOA}
           </Typography>
         </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <MonetizationOnIcon fontSize="small" color="primary" />
-            <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>
-              {salary}
-            </Typography>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <DateRangeIcon fontSize="small" color="primary" />
-            <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>
-              {roundDate || '--'}
-            </Typography>
-          </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
+          <Typography variant="body2" color="text.secondary">
+            Eligible Above: {eligibleAbove}
+          </Typography>
         </Box>
       </CardContent>
       <RegularOfferBanner>

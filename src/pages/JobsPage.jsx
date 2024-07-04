@@ -5,105 +5,35 @@ import Layout from '../layout/Layout';
 
 const mockJobsData = [
   {
-    jobTitle: 'Frontend Developer',
-    companyName: 'Tech Solutions Inc.',
-    logoUrl: '',
-    location: 'San Francisco, CA',
-    jobType: 'Full-time',
-    role: 'Associate Engineer',
-    salary: '₹4L PA',
-    roundDate: '--',
-    applied: false,
+    companyName: "Example Company",
+    CTC: "10 LPA",
+    DOA: "2024-07-06",
+    eligibleAbove: "7 CGPA",
+    Applied: true,
+    logo: "https://example.com/logo.png",
+    jobTitle: "Software Dev",
+    jobType: "Full-Time"
   },
   {
-    jobTitle: 'Backend Developer',
-    companyName: 'Data Analytics Corp.',
-    logoUrl: '',
-    location: 'New York, NY',
-    jobType: 'Full-time',
-    role: 'Associate Engineer',
-    salary: '₹4L PA',
-    roundDate: '--',
-    applied: true,
+    companyName: "Example Company",
+    CTC: "10 LPA",
+    DOA: "2024-07-06",
+    eligibleAbove: "7 CGPA",
+    Applied: true,
+    logo: "https://example.com/logo.png",
+    jobTitle: "Software Dev",
+    jobType: "Full-Time"
   },
   {
-    jobTitle: 'UI/UX Designer',
-    companyName: 'Creative Studio',
-    logoUrl: '',
-    location: 'Remote',
-    jobType: 'Contract',
-    role: 'Associate Engineer',
-    salary: '₹4L PA',
-    roundDate: '--',
-    applied: true,
+    companyName: "Example Company",
+    CTC: "10 LPA",
+    DOA: "2024-07-06",
+    eligibleAbove: "7 CGPA",
+    Applied: true,
+    logo: "https://example.com/logo.png",
+    jobTitle: "Software Dev",
+    jobType: "Full-Time"
   },
-  {
-    jobTitle: 'UI/UX Designer',
-    companyName: 'Creative Studio',
-    logoUrl: '',
-    location: 'Remote',
-    jobType: 'Contract',
-    role: 'Associate Engineer',
-    salary: '₹4L PA',
-    roundDate: '--',
-    applied: true,
-  },
-  {
-    jobTitle: 'UI/UX Designer',
-    companyName: 'Creative Studio',
-    logoUrl: '',
-    location: 'Remote',
-    jobType: 'Contract',
-    role: 'Associate Engineer',
-    salary: '₹4L PA',
-    roundDate: '--',
-    applied: true,
-  },
-  {
-    jobTitle: 'UI/UX Designer',
-    companyName: 'Creative Studio',
-    logoUrl: '',
-    location: 'Remote',
-    jobType: 'Contract',
-    role: 'Associate Engineer',
-    salary: '₹4L PA',
-    roundDate: '--',
-    applied: true,
-  },
-  {
-    jobTitle: 'UI/UX Designer',
-    companyName: 'Creative Studio',
-    logoUrl: '',
-    location: 'Remote',
-    jobType: 'Contract',
-    role: 'Associate Engineer',
-    salary: '₹4L PA',
-    roundDate: '--',
-    applied: true,
-  },
-  {
-    jobTitle: 'UI/UX Designer',
-    companyName: 'Creative Studio',
-    logoUrl: '',
-    location: 'Remote',
-    jobType: 'Contract',
-    role: 'Associate Engineer',
-    salary: '₹4L PA',
-    roundDate: '--',
-    applied: true,
-  },
-  {
-    jobTitle: 'UI/UX Designer',
-    companyName: 'Creative Studio',
-    logoUrl: '',
-    location: 'Remote',
-    jobType: 'Contract',
-    role: 'Associate Engineer',
-    salary: '₹4L PA',
-    roundDate: '--',
-    applied: true,
-  },
-  // Add more job entries as needed
 ];
 
 const JobsPage = () => {
@@ -118,38 +48,38 @@ const JobsPage = () => {
   };
 
   const filteredJobs = showApplied
-    ? mockJobsData.filter(job => job.applied)
+    ? mockJobsData.filter(job => job.Applied)
     : mockJobsData;
 
   return (
     <Layout>
-        <Container>
-      <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: 2 }}>
-        <Button
-          variant={showApplied ? 'outlined' : 'contained'}
-          onClick={handleShowAll}
-          sx={{ marginRight: 1 }}
-        >
-          All Jobs
-        </Button>
-        <Button
-          variant={showApplied ? 'contained' : 'outlined'}
-          onClick={handleShowApplied}
-        >
-          Applied Jobs
-        </Button>
-      </Box>
-      <Typography variant="h4" gutterBottom>
-        {showApplied ? 'Applied Jobs' : 'All Jobs'}
-      </Typography>
-      <Grid container spacing={3}>
-        {filteredJobs.map((job, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <JobCard {...job} />
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
+      <Container>
+        <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: 2 }}>
+          <Button
+            variant={showApplied ? 'outlined' : 'contained'}
+            onClick={handleShowAll}
+            sx={{ marginRight: 1 }}
+          >
+            All Jobs
+          </Button>
+          <Button
+            variant={showApplied ? 'contained' : 'outlined'}
+            onClick={handleShowApplied}
+          >
+            Applied Jobs
+          </Button>
+        </Box>
+        <Typography variant="h4" gutterBottom>
+          {showApplied ? 'Applied Jobs' : 'All Jobs'}
+        </Typography>
+        <Grid container spacing={3}>
+          {filteredJobs.map((job, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <JobCard {...job} />
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
     </Layout>
   );
 };
