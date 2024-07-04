@@ -1,4 +1,4 @@
-// src/LoginPage.js
+// src/pages/LoginPage.js
 import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, Box, Link, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
