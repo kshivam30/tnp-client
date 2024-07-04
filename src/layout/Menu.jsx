@@ -1,18 +1,14 @@
 // src/components/layout/Menu.js
 import React from 'react';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import HomeIcon from '@mui/icons-material/Home';
+import { Drawer, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { Link } from 'react-router-dom';
-
+import HomeIcon from '@mui/icons-material/Home';
+import WorkIcon from '@mui/icons-material/Work';
+import LogoutIcon from '@mui/icons-material/Logout';
 const Menu = ({ open, onClose }) => {
   return (
     <Drawer
-      variant="persistent"
-      anchor="left"
+      variant="temporary"
       open={open}
       onClose={onClose}
       sx={{
@@ -25,9 +21,17 @@ const Menu = ({ open, onClose }) => {
       }}
     >
       <List>
-        <ListItem button component={Link} to="/" onClick={onClose}>
+        <ListItem component={Link} to="/" onClick={onClose} button>
           <ListItemIcon><HomeIcon /></ListItemIcon>
           <ListItemText primary="Home" />
+        </ListItem>
+        <ListItem component={Link} to="/jobs" onClick={onClose} button>
+          <ListItemIcon><WorkIcon /></ListItemIcon>
+          <ListItemText primary="Jobs" />
+        </ListItem>
+        <ListItem component={Link} to="/login" onClick={onClose} button>
+          <ListItemIcon><LogoutIcon/></ListItemIcon>
+          <ListItemText primary="Logout" />
         </ListItem>
         {/* Add more menu items as needed */}
       </List>

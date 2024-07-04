@@ -5,7 +5,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Menu from './Menu';
@@ -29,9 +28,10 @@ const Layout = ({ children }) => {
       <AppBar
         position="fixed"
         sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          transition: 'margin-left 0.3s',
+          marginLeft: menuOpen ? `${drawerWidth}px` : 0,
           width: menuOpen ? `calc(100% - ${drawerWidth}px)` : '100%',
-          ml: menuOpen ? `${drawerWidth}px` : 0,
-          transition: 'width 0.3s',
         }}
       >
         <Toolbar>
@@ -56,18 +56,12 @@ const Layout = ({ children }) => {
         sx={{
           flexGrow: 1,
           p: 3,
-          width: menuOpen ? `calc(100% - ${drawerWidth}px)` : '100%',
-          transition: 'width 0.3s',
-          ml: menuOpen ? `${drawerWidth}px` : 0,
+          transition: 'margin-left 0.3s',
+          marginLeft: menuOpen ? `${drawerWidth}px` : 0,
         }}
       >
         <Toolbar />
         {children}
-      </Box>
-      <Box component="footer" sx={{ p: 2, backgroundColor: '#f8f9fa', textAlign: 'center' }}>
-        <Typography variant="body2" color="text.secondary">
-          © 2024 TNP - BIT. All rights reserved.
-        </Typography>
       </Box>
     </Box>
   );

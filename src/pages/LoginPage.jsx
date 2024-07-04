@@ -39,7 +39,7 @@ const LoginPage = () => {
     };
 
     return (
-        <Layout>
+        // <Layout>
             <Container maxWidth="xs">
                 <Box
                     sx={{
@@ -116,7 +116,7 @@ const LoginPage = () => {
                     </Box>
                 </Box>
             </Container>
-        </Layout>
+        // </Layout>
     );
 };
 
