@@ -6,6 +6,7 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import BusinessIcon from '@mui/icons-material/Business';
 import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   maxWidth: 345,
@@ -15,23 +16,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
   boxShadow: theme.shadows[1],
 }));
 
-const StatusButton = styled(Button)(({ theme, applied }) => ({
-  backgroundColor: applied ? theme.palette.primary.main : theme.palette.error.main,
-  color: theme.palette.common.white,
-  borderRadius: theme.shape.borderRadius,
-  padding: theme.spacing(0.5, 1),
-  textTransform: 'none',
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  '&:hover': {
-    backgroundColor: "white",
-    color: applied ? '#1976d2' : "red", // Light blue color on hover
-  },
-}));
-
 const RegularOfferBanner = styled(Box)(({ theme }) => ({
-  backgroundColor: '#FFEB3B',
   padding: theme.spacing(1),
   textAlign: 'center',
   borderTop: '1px solid #e0e0e0',
@@ -46,13 +31,9 @@ const JobCard = ({
   logo,
   jobTitle,
   jobType,
+  onRemove
 }) => {
-  const [isApplied, setIsApplied] = useState(Applied);
-
-  const handleToggleApply = () => {
-    setIsApplied(!isApplied);
-  };
-
+  const navigate = useNavigate();
   return (
     <StyledCard>
       <CardContent>
@@ -68,13 +49,8 @@ const JobCard = ({
               <BusinessIcon style={{ fontSize: 50, color: '#e0e0e0' }} />
             )}
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={10}>
             <Typography variant="h6">{companyName}</Typography>
-          </Grid>
-          <Grid item xs={4} display="flex" justifyContent="flex-end" alignItems="center">
-            <StatusButton applied={isApplied} onClick={handleToggleApply} fullWidth>
-              {isApplied ? 'Applied' : 'Not Applied'}
-            </StatusButton>
           </Grid>
         </Grid>
         <Typography variant="h5" component="div" sx={{ mt: 1 }}>
@@ -103,10 +79,22 @@ const JobCard = ({
             Eligible Above: {eligibleAbove}
           </Typography>
         </Box>
+        {onRemove ? (
+          <RegularOfferBanner>
+            <Button variant="contained" color="secondary" onClick={onRemove}>
+              Remove
+            </Button>
+          </RegularOfferBanner>
+        ) : (
+          <RegularOfferBanner>
+            <Button variant="contained" color="secondary" onClick={() => {
+              navigate("/xyzjobportal")
+            }}>
+              Apply
+            </Button>
+          </RegularOfferBanner>
+        )}
       </CardContent>
-      <RegularOfferBanner>
-        <Typography variant="body2">Regular offer</Typography>
-      </RegularOfferBanner>
     </StyledCard>
   );
 };

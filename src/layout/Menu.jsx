@@ -38,6 +38,10 @@ const Menu = ({ open, onClose }) => {
           <ListItemIcon><HelpIcon/></ListItemIcon>
           <ListItemText primary="Help" />
         </ListItem>
+        <ListItem component={Link} to="/addjob" onClick={onClose}>
+          <ListItemIcon><WorkIcon/></ListItemIcon>
+          <ListItemText primary="Add Job" />
+        </ListItem>
         {/* Add more menu items as needed */}
       </List>
     </Drawer>

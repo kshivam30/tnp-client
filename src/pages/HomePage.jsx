@@ -3,6 +3,8 @@ import { Box, Card, CardContent, Typography, Grid, Avatar } from '@mui/material'
 import { styled } from '@mui/material/styles'; 
 import Layout from '../layout/Layout';
 import { useSelector } from 'react-redux';
+import { Dashboard } from '@mui/icons-material';
+import DashboardComponent from '../components/DashBoardComponent';
 
 const StatCard = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
@@ -29,6 +31,7 @@ const HomePage = () => {
 
   return (
     <Layout>
+      <DashboardComponent/>
       <Box sx={{ flexGrow: 1, p: 3 }}>
         {role === 'Admin' ? (
           <Grid container spacing={3}>
