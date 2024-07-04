@@ -23,18 +23,12 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-          </Routes>
-          <Routes>
-            <Route path="/login" element={<LoginPage />} />
-          </Routes>
-          <Routes>
-            <Route path="/jobs" element={<JobsPage />} />
-          </Routes>
-          <Routes>
-            <Route path="/help" element={<HelpPage />} />
-          </Routes>
+      <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/jobs" element={<JobsPage />} />
+          <Route path="/help" element={<HelpPage />} />
+        </Routes>
       </BrowserRouter>
     </ThemeProvider>
   );

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, Box, Link, Alert, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setUser, setRole } from '../state'; 
+import { setUser, setUserRole } from '../state'; 
 
 const LoginPage = () => {
     const [isSignUp, setIsSignUp] = useState(false);
@@ -14,10 +14,12 @@ const LoginPage = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const backendServer = process.env.REACT_APP_BACKEND_SERVER;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         setError('');
+        console.log("Reques recived")
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
@@ -50,7 +52,8 @@ const LoginPage = () => {
             // Signup logic
             const signupData = { email, password, name, role, registrationNumber };
             try {
-                const response = await fetch('http://your-backend-api/register', {
+                console.log("Singning up")
+                const response = await fetch(`${backendServer}/register`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -63,8 +66,8 @@ const LoginPage = () => {
 
                 const data = await response.json();
                 dispatch(setUser(email));
-                dispatch(setRole(role));
-                navigate('/');
+                dispatch(setUserRole(role));
+                setIsSignUp(false)
             } catch (error) {
                 setError(error.message);
             }
@@ -72,7 +75,7 @@ const LoginPage = () => {
             // Login logic
             const loginData = { email, password };
             try {
-                const response = await fetch('http://your-backend-api/login', {
+                const response = await fetch(`${backendServer}/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -92,7 +95,7 @@ const LoginPage = () => {
                 }
 
                 dispatch(setUser(email));
-                dispatch(setRole(role));
+                dispatch(setUserRole(role));
                 navigate('/');
             } catch (error) {
                 setError(error.message);
