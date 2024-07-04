@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import WorkIcon from '@mui/icons-material/Work';
 import LogoutIcon from '@mui/icons-material/Logout';
+import HelpIcon from '@mui/icons-material/Help';
 const Menu = ({ open, onClose }) => {
   return (
     <Drawer
@@ -21,17 +22,21 @@ const Menu = ({ open, onClose }) => {
       }}
     >
       <List>
-        <ListItem component={Link} to="/" onClick={onClose} button>
+        <ListItem component={Link} to="/" onClick={onClose}>
           <ListItemIcon><HomeIcon /></ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
-        <ListItem component={Link} to="/jobs" onClick={onClose} button>
+        <ListItem component={Link} to="/jobs" onClick={onClose}>
           <ListItemIcon><WorkIcon /></ListItemIcon>
           <ListItemText primary="Jobs" />
         </ListItem>
-        <ListItem component={Link} to="/login" onClick={onClose} button>
+        <ListItem component={Link} to="/login" onClick={onClose}>
           <ListItemIcon><LogoutIcon/></ListItemIcon>
           <ListItemText primary="Logout" />
+        </ListItem>
+        <ListItem component={Link} to="/help" onClick={onClose}>
+          <ListItemIcon><HelpIcon/></ListItemIcon>
+          <ListItemText primary="Help" />
         </ListItem>
         {/* Add more menu items as needed */}
       </List>
