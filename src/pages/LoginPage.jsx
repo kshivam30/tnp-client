@@ -53,7 +53,7 @@ const LoginPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
-    console.log("Reques recived");
+    console.log("Request received");
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -86,7 +86,7 @@ const LoginPage = () => {
       // Signup logic
       const signupData = { email, password, name, role, registrationNumber };
       try {
-        console.log("Singning up");
+        console.log("Signing up");
         const response = await fetch(`${backendServer}/register`, {
           method: "POST",
           headers: {
@@ -109,21 +109,6 @@ const LoginPage = () => {
       // Login logic
       const loginData = { email, password };
       try {
-        // const response = await fetch(`${backendServer}/login`, {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify(loginData),
-        // });
-        // if (!response.ok) {
-        //   throw new Error("Failed to sign in");
-        // }
-
-        // const data = await response.json();
-
-        // dispatch(setUser(data.email));
-        // dispatch(setUserRole(data.role)); 
         await dispatch(loginUser(loginData)).unwrap();
         navigate("/");
       } catch (error) {
@@ -138,121 +123,148 @@ const LoginPage = () => {
   };
 
   return (
-    <Container maxWidth="xs">
+    <>
+      <Box
+        sx={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundImage: `url('https://images.shiksha.com/mediadata/images/1606461255php4NobaM.jpeg')`, // Replace with your image path
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          filter: "blur(4px)",
+          zIndex: -1,
+        }}
+      />
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column",
+          justifyContent: "center",
           alignItems: "center",
-          mt: 8,
+          height: "100vh",
+          position: "relative",
         }}
       >
-        <Typography component="h1" variant="h5">
-          {isSignUp ? "Sign Up" : "Sign In"}
-        </Typography>
-        {error && (
-          <Alert severity="error" sx={{ mt: 2, width: "100%" }}>
-            {error}
-          </Alert>
-        )}
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          {isSignUp && (
-            <>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="name"
-                label="Name"
-                name="name"
-                autoComplete="name"
-                autoFocus
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <Box sx={{ display: "flex", gap: 2 }}>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  select
-                  id="role"
-                  label="Role"
-                  name="role"
-                  value={role}
-                  onChange={(e) => setRole(e.target.value)}
-                  sx={{ flex: 1 }}
-                >
-                  <MenuItem value="Student">Student</MenuItem>
-                  <MenuItem value="Admin">Admin</MenuItem>
-                </TextField>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="registrationNumber"
-                  label="Registration Number"
-                  name="registrationNumber"
-                  autoComplete="registration-number"
-                  value={registrationNumber}
-                  onChange={(e) => setRegistrationNumber(e.target.value)}
-                  sx={{ flex: 1 }}
-                />
-              </Box>
-            </>
+        <Container
+          maxWidth="xs"
+          sx={{
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
+            padding: 4,
+            borderRadius: 2,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography component="h1" variant="h5">
+            {isSignUp ? "Sign Up" : "Sign In"}
+          </Typography>
+          {error && (
+            <Alert severity="error" sx={{ mt: 2, width: "100%" }}>
+              {error}
+            </Alert>
           )}
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus={!isSignUp}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {isSignUp && (
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            {isSignUp && (
+              <>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="name"
+                  label="Name"
+                  name="name"
+                  autoComplete="name"
+                  autoFocus
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <Box sx={{ display: "flex", gap: 2 }}>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    select
+                    id="role"
+                    label="Role"
+                    name="role"
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    sx={{ flex: 1 }}
+                  >
+                    <MenuItem value="Student">Student</MenuItem>
+                    <MenuItem value="Admin">Admin</MenuItem>
+                  </TextField>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="registrationNumber"
+                    label="Registration Number"
+                    name="registrationNumber"
+                    autoComplete="registration-number"
+                    value={registrationNumber}
+                    onChange={(e) => setRegistrationNumber(e.target.value)}
+                    sx={{ flex: 1 }}
+                  />
+                </Box>
+              </>
+            )}
             <TextField
               margin="normal"
               required
               fullWidth
-              name="confirmPassword"
-              label="Confirm Password"
-              type="password"
-              id="confirmPassword"
-              autoComplete="new-password"
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus={!isSignUp}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-          )}
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            {isSignUp ? "Sign Up" : "Sign In"}
-          </Button>
-          <Link href="#" variant="body2" onClick={toggleSignUp}>
-            {isSignUp
-              ? "Already have an account? Sign in"
-              : "Don't have an account? Sign up"}
-          </Link>
-        </Box>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {isSignUp && (
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="confirmPassword"
+                label="Confirm Password"
+                type="password"
+                id="confirmPassword"
+                autoComplete="new-password"
+              />
+            )}
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              {isSignUp ? "Sign Up" : "Sign In"}
+            </Button>
+            <Link href="#" variant="body2" onClick={toggleSignUp}>
+              {isSignUp
+                ? "Already have an account? Sign in"
+                : "Don't have an account? Sign up"}
+            </Link>
+          </Box>
+        </Container>
       </Box>
-    </Container>
+    </>
   );
 };
 
