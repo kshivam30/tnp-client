@@ -14,18 +14,18 @@ const JobsPage = () => {
   const userEmail = useSelector((state) => state.user.user);
   const role = useSelector((state) => state.user.role);
 
+  const fetchJobs = async () => {
+    try {
+      const response = await axios.get(`${backendServer}/getJobs`);
+      setJobs(response.data);
+      setIsLoading(false); // Set loading to false once data is fetched
+    } catch (error) {
+      console.error('Error fetching job data:', error);
+      setIsLoading(false); 
+    }
+  };
+ 
   useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        const response = await axios.get(`${backendServer}/getJobs`);
-        setJobs(response.data);
-        setIsLoading(false); // Set loading to false once data is fetched
-      } catch (error) {
-        console.error('Error fetching job data:', error);
-        setIsLoading(false); // Set loading to false in case of an error
-      }
-    };
-
     fetchJobs();
   }, [backendServer]);
 
@@ -70,8 +70,8 @@ const JobsPage = () => {
                   <Grid item xs={12} sm={6} md={4} key={skeletonIndex}>
                     <Skeleton 
                       variant="rectangular" 
-                      width="100%" 
-                      height={200} 
+                      width="90%" 
+                      height={235} 
                       sx={{ bgcolor: 'lightgray', borderRadius: 1 }} 
                     />
                   </Grid>
@@ -79,7 +79,7 @@ const JobsPage = () => {
               ) : (
                 filteredJobs.map((job, index) => (
                   <Grid item xs={12} sm={6} md={4} key={index}>
-                    <JobCard {...job} />
+                    <JobCard {...job} fetchJobs={fetchJobs} />
                   </Grid>
                 ))
               )}
@@ -91,13 +91,14 @@ const JobsPage = () => {
               All Jobs
             </Typography>
             <Grid container spacing={3}>
+
               {isLoading ? (
                 [1, 2, 3, 4, 5, 6].map((skeletonIndex) => (
                   <Grid item xs={12} sm={6} md={4} key={skeletonIndex}>
                     <Skeleton 
                       variant="rectangular" 
                       width="90%" 
-                      height={240} 
+                      height={235} 
                       sx={{ margin:2 , bgcolor: 'lightgrey', borderRadius: 1 }} 
                     />
                   </Grid>
@@ -105,7 +106,7 @@ const JobsPage = () => {
               ) : (
                 jobs.map((job, index) => (
                   <Grid item xs={12} sm={6} md={4} key={index}>
-                    <AdminJobCard {...job} />
+                    <AdminJobCard {...job} fetchJobs={fetchJobs}/>
                   </Grid>
                 ))
               )}
