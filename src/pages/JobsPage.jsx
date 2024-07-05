@@ -1,43 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Grid, Container, Box, Typography } from '@mui/material';
 import JobCard from '../components/JobCard'; // Adjust the path based on your project structure
 import Layout from '../layout/Layout';
-
-const mockJobsData = [
-  {
-    companyName: "Example Company",
-    CTC: "10 LPA",
-    DOA: "2024-07-06",
-    eligibleAbove: "7 CGPA",
-    Applied: true,
-    logo: "https://example.com/logo.png",
-    jobTitle: "Software Dev",
-    jobType: "Full-Time"
-  },
-  {
-    companyName: "Example Company",
-    CTC: "10 LPA",
-    DOA: "2024-07-06",
-    eligibleAbove: "7 CGPA",
-    Applied: true,
-    logo: "https://example.com/logo.png",
-    jobTitle: "Software Dev",
-    jobType: "Full-Time"
-  },
-  {
-    companyName: "Example Company",
-    CTC: "10 LPA",
-    DOA: "2024-07-06",
-    eligibleAbove: "7 CGPA",
-    Applied: true,
-    logo: "https://example.com/logo.png",
-    jobTitle: "Software Dev",
-    jobType: "Full-Time"
-  },
-];
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const JobsPage = () => {
+  const [jobs, setJobs] = useState([]);
   const [showApplied, setShowApplied] = useState(false);
+  const backendServer = process.env.REACT_APP_BACKEND_SERVER;
+  const userEmail = useSelector((state) => state.user.user);
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const response = await axios.get(`${backendServer}/getJobs`);
+        setJobs(response.data);
+      } catch (error) {
+        console.error('Error fetching job data:', error);
+      }
+    };
+
+    fetchJobs();
+  }, [backendServer]);
 
   const handleShowAll = () => {
     setShowApplied(false);
@@ -48,8 +33,8 @@ const JobsPage = () => {
   };
 
   const filteredJobs = showApplied
-    ? mockJobsData.filter(job => job.Applied)
-    : mockJobsData;
+    ? jobs.filter(job => job.userApplied.includes(userEmail))
+    : jobs;
 
   return (
     <Layout>

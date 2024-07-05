@@ -1,13 +1,12 @@
-// src/components/JobCard.jsx
 import React, { useState } from 'react';
 import { Card, CardContent, Button, Typography, Box, Grid } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { useSelector } from 'react-redux';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import WorkIcon from '@mui/icons-material/Work';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import BusinessIcon from '@mui/icons-material/Business';
-import { styled } from '@mui/material/styles';
-import { useSelector } from 'react-redux';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   maxWidth: 345,
@@ -32,45 +31,32 @@ const StatusButton = styled(Button)(({ theme, applied }) => ({
   },
 }));
 
-const RegularOfferBanner = styled(Box)(({ theme }) => ({
-  backgroundColor: '#FFEB3B',
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  borderTop: '1px solid #e0e0e0',
-}));
-
 const JobCard = ({
-  jobId,
-  jobTitle,
   companyName,
-  logoUrl,
-  location,
-  jobType,
   CTC,
-  applied,
   DOA,
   eligibleAbove,
-  userDetails,
+  logo,
+  jobTitle,
+  jobType,
+  userApplied
 }) => {
-  const [isApplied, setIsApplied] = useState(applied);
   const userEmail = useSelector((store) => store.user.user);
-  const data = {
-    userEmail, 
-    companyName,
-  }
+  const [isApplied, setIsApplied] = useState(userApplied.includes(userEmail));
+  const backendServer = process.env.REACT_APP_BACKEND_SERVER;
+
   const handleToggleApply = async () => {
-    console.log(data);
-    setIsApplied(!isApplied);
     try {
-      const response = await fetch('/jobs/apply', {
+      const response = await fetch(`${backendServer}/jobs/apply`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ email: userEmail, company: companyName }),
       });
 
       if (response.ok) {
+        setIsApplied(!isApplied);
         alert('Application submitted successfully!');
       } else {
         throw new Error('Failed to apply for the job');
@@ -78,7 +64,6 @@ const JobCard = ({
     } catch (error) {
       console.error('Error applying for job:', error);
       alert('Failed to apply for the job.');
-      setIsApplied(applied); // Revert state if there's an error
     }
   };
 
@@ -87,9 +72,9 @@ const JobCard = ({
       <CardContent>
         <Grid container spacing={2}>
           <Grid item xs={2} display="flex" justifyContent="center" alignItems="center">
-            {logoUrl ? (
+            {logo ? (
               <img
-                src={logoUrl}
+                src={logo}
                 alt={`${companyName} logo`}
                 style={{ width: 50, height: 50, borderRadius: '50%' }}
               />
@@ -124,7 +109,7 @@ const JobCard = ({
         <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
           <DateRangeIcon fontSize="small" color="primary" />
           <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>
-            {DOA || '--'}
+            {new Date(DOA).toLocaleDateString() || '--'}
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
@@ -133,9 +118,6 @@ const JobCard = ({
           </Typography>
         </Box>
       </CardContent>
-      <RegularOfferBanner>
-        <Typography variant="body2">Regular offer</Typography>
-      </RegularOfferBanner>
     </StyledCard>
   );
 };

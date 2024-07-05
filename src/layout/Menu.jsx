@@ -9,15 +9,18 @@ import HelpIcon from '@mui/icons-material/Help';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { resetUser } from '../state';
+
 const Menu = ({ open, onClose }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const role = useSelector((store) => store.role);
+  const role =  useSelector((state) => state.user.role);
+  
   const handleLogout = () => {
     dispatch(resetUser());
     onClose();
     navigate('/login');
   };
+
   return (
     <Drawer
       variant="temporary"
