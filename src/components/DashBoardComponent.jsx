@@ -32,7 +32,7 @@ const DashboardComponent = ({ user }) => {
         <Typography variant="h6">{user.name}</Typography>
         <Typography variant="body2" color="textSecondary">{user.email}</Typography>
         <Typography variant="body2" color="textSecondary">
-          Registration Number: {user.registrationNumber} 
+          Registration Number: {user.registrationNumber} | {user.role} 
         </Typography>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
           {/* Example Chip - Replace with actual user data */}

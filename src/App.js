@@ -6,7 +6,6 @@ import LoginPage from "./pages/LoginPage";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import JobsPage from "./pages/JobsPage";
 import HelpPage from "./pages/HelpPage";
-import AdminPage from "./pages/AdminPage";
 import AddJobPage from "./pages/AddJobPage";
 import PrivateRoute from "./components/PrivateRoute";
 
@@ -30,7 +29,6 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/jobs" element={<JobsPage />} />
           <Route path="/help" element={<HelpPage />} />
-          <Route path="/admin" element={<AdminPage />} />
           <Route path="/addjob" element={<AddJobPage />} />
         </Routes>
       </BrowserRouter>

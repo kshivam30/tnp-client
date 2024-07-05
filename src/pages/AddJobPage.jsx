@@ -2,18 +2,19 @@ import React, { useState } from 'react';
 import { Container, Typography, Card, CardContent, Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../layout/Layout';
+import axios from 'axios';
 
-const AddJobPage = ({ addJob }) => {
+const AddJobPage = () => {
   const [newJob, setNewJob] = useState({
     companyName: '',
     CTC: '',
     DOA: '',
     eligibleAbove: '',
-    Applied: false,
     logo: '',
     jobTitle: '',
     jobType: ''
   });
+  const backendServer = process.env.REACT_APP_BACKEND_SERVER;
 
   const navigate = useNavigate();
 
@@ -25,9 +26,17 @@ const AddJobPage = ({ addJob }) => {
     });
   };
 
-  const handleSubmit = () => {
-    addJob(newJob);
-    navigate('/admin');
+  const handleSubmit = async () => {
+    console.log(newJob);
+    try {
+      const response = await axios.post(`${backendServer}/addJob`, {  // Adjusted endpoint to '/jobs'
+        ...newJob,  // Send newJob directly, not nested under 'newJob'
+      });
+    }
+    catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+    navigate('/');
   };
 
   return (

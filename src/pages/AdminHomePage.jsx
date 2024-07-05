@@ -58,7 +58,7 @@ const initialJobs = [
   }
 ];
 
-const AdminPage = () => {
+const AdminHomePage = () => {
   const [jobs, setJobs] = useState(initialJobs);
 
   const removeJob = (index) => {
@@ -69,7 +69,7 @@ const AdminPage = () => {
   return (
     <Layout>
       <Container>
-        <Typography variant="h4" gutterBottom>Admin Dashboard</Typography>
+        {/* <Typography variant="h4" gutterBottom>Admin Dashboard</Typography>
         <Box display="flex" justifyContent="flex-end" mb={2}>
           <Button
             variant="contained"
@@ -98,10 +98,10 @@ const AdminPage = () => {
               />
             </Grid>
           ))}
-        </Grid>
+        </Grid> */}
       </Container>
     </Layout>
   );
 };
 
-export default AdminPage;
+export default AdminHomePage;
