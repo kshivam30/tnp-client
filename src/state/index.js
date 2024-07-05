@@ -17,7 +17,7 @@ const userSlice = createSlice({
       state.role = action.payload;
     },
     resetUser: (state) => {
-      state.email = '';
+      state.user = '';
       state.role = '';
     },
   },
