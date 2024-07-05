@@ -7,20 +7,39 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import Menu from './Menu';
-
+import { AccountCircle } from '@mui/icons-material';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import LeftMenu from './Menu'; // Import your custom Menu component
+import { resetUser } from '../state';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 const drawerWidth = 240;
 
 const Layout = ({ children }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [profileAnchorEl, setProfileAnchorEl] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const role =  useSelector((state) => state.user.role);
+  
+  const handleLogout = () => {
+    dispatch(resetUser());
+    navigate('/login');
+  };
 
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
   };
 
-  const handleMenuClose = () => {
-    setMenuOpen(false);
+  const handleProfileMenuOpen = (event) => {
+    setProfileAnchorEl(event.currentTarget);
   };
+
+  const handleProfileMenuClose = () => {
+    setProfileAnchorEl(null);
+  };
+
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -48,9 +67,34 @@ const Layout = ({ children }) => {
           <Typography variant="h6" noWrap component="div">
             BIT Training and Placement Cell
           </Typography>
+          <div style={{ marginLeft: 'auto' }}>
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls="profile-menu"
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="profile-menu"
+              anchorEl={profileAnchorEl}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+              keepMounted
+              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+              open={Boolean(profileAnchorEl)}
+              onClose={handleProfileMenuClose}
+            >
+              <MenuItem onClick={handleProfileMenuClose}>Priyanshu</MenuItem>
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            </Menu>
+          </div>
         </Toolbar>
       </AppBar>
-      <Menu open={menuOpen} onClose={handleMenuClose} />
+      <LeftMenu open={menuOpen} onClose={handleMenuToggle} />
       <Box
         component="main"
         sx={{
