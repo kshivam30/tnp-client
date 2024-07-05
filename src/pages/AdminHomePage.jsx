@@ -67,7 +67,6 @@ const AdminHomePage = () => {
   };
 
   return (
-    <Layout>
       <Container>
         {/* <Typography variant="h4" gutterBottom>Admin Dashboard</Typography>
         <Box display="flex" justifyContent="flex-end" mb={2}>
@@ -100,7 +99,6 @@ const AdminHomePage = () => {
           ))}
         </Grid> */}
       </Container>
-    </Layout>
   );
 };
 
