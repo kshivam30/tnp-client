@@ -5,10 +5,11 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import Layout from '../layout/Layout';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 
 const HelpPage = () => {
-  const [messages, setMessages] = useState([{ id: 0, sender: 'Support Bot', text: 'Hey "username", how can I help you?', type: 'bot' }]);
+  const [messages, setMessages] = useState([{ id: 0, sender: 'Support Bot', text: 'Hey, how can I help you?', type: 'bot' }]);
   const [input, setInput] = useState('');
   const messagesEndRef = useRef(null);
   const backendServer = process.env.REACT_APP_BACKEND_SERVER;
