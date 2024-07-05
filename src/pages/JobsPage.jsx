@@ -70,8 +70,8 @@ const JobsPage = () => {
                   <Grid item xs={12} sm={6} md={4} key={skeletonIndex}>
                     <Skeleton 
                       variant="rectangular" 
-                      width="100%" 
-                      height={200} 
+                      width="90%" 
+                      height={235} 
                       sx={{ bgcolor: 'lightgray', borderRadius: 1 }} 
                     />
                   </Grid>
@@ -97,7 +97,7 @@ const JobsPage = () => {
                     <Skeleton 
                       variant="rectangular" 
                       width="90%" 
-                      height={240} 
+                      height={235} 
                       sx={{ margin:2 , bgcolor: 'lightgrey', borderRadius: 1 }} 
                     />
                   </Grid>
