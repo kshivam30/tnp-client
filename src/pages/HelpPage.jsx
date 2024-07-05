@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Box, Typography, Card, CardContent, Avatar, TextField, Button } from '@mui/material';
+import { Box, Typography, Card, CardContent, Avatar, TextField, Button, IconButton } from '@mui/material';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import SendIcon from '@mui/icons-material/Send';
 import Layout from '../layout/Layout';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-
 
 const HelpPage = () => {
   const [messages, setMessages] = useState([{ id: 0, sender: 'Support Bot', text: 'Hey, how can I help you?', type: 'bot' }]);
@@ -20,7 +20,7 @@ const HelpPage = () => {
 
   const summarizeCompanyData = (companyData) => {
     return companyData.map(company => {
-      return `${company.jobTitle} at ${company.companyName}, Job Type: ${company.jobType},Salary: ${company.CTC}`;
+      return `${company.jobTitle} at ${company.companyName}, Job Type: ${company.jobType}, Salary: ${company.CTC}`;
     }).join("; ");
   };
 
@@ -36,6 +36,7 @@ const HelpPage = () => {
     fetchJobs();
   }, [backendServer]);
   const companySummary = summarizeCompanyData(jobs);
+
   const handleSend = async () => {
     if (input.trim() === '') return;
 
@@ -84,10 +85,18 @@ const HelpPage = () => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          backgroundColor: '#f1f1f1',
+          backgroundColor: '#f7f7f7',
+          borderRadius: 2,
+          boxShadow: 3,
+          maxWidth: '600px',
+          margin: 'auto',
+          padding: 2,
         }}
       >
-        <Box sx={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
+        <Typography variant="h5" sx={{ textAlign: 'center', mb: 2, color: '#1976d2' }}>
+          Support Chat
+        </Typography>
+        <Box sx={{ flex: 1, overflowY: 'auto', padding: '20px', bgcolor: 'white', borderRadius: 2 }}>
           {messages.map((message) => (
             <Card
               key={message.id}
@@ -95,11 +104,14 @@ const HelpPage = () => {
                 display: 'flex',
                 alignItems: 'flex-start',
                 marginBottom: '10px',
-                backgroundColor: message.type === 'user' ? '#e0f7fa' : '#ffffff',
+                backgroundColor: message.type === 'user' ? '#e3f2fd' : '#f1f8e9',
+                alignSelf: message.type === 'user' ? 'flex-end' : 'flex-start',
+                maxWidth: '80%',
+                boxShadow: 1,
               }}
             >
               <Avatar
-                sx={{ margin: '10px', backgroundColor: message.type === 'user' ? '#2196f3' : '#4caf50' }}
+                sx={{ margin: '10px', backgroundColor: message.type === 'user' ? '#1976d2' : '#4caf50' }}
               >
                 {message.type === 'user' ? <ChatBubbleOutlineIcon /> : <SupportAgentIcon />}
               </Avatar>
@@ -113,7 +125,7 @@ const HelpPage = () => {
           ))}
           <div ref={messagesEndRef} />
         </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center', padding: '10px', backgroundColor: '#ffffff' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', padding: '10px', backgroundColor: '#ffffff', borderRadius: 2 }}>
           <TextField
             variant="outlined"
             fullWidth
@@ -122,9 +134,9 @@ const HelpPage = () => {
             onKeyPress={handleKeyPress}
             placeholder="Type your query..."
           />
-          <Button variant="contained" color="primary" onClick={handleSend} sx={{ marginLeft: '10px' }}>
-            Send
-          </Button>
+          <IconButton color="primary" onClick={handleSend} sx={{ marginLeft: '10px' }}>
+            <SendIcon />
+          </IconButton>
         </Box>
       </Box>
     </Layout>
