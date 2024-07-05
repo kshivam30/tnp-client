@@ -39,7 +39,8 @@ const JobCard = ({
   logo,
   jobTitle,
   jobType,
-  userApplied
+  userApplied,
+  fetchJobs
 }) => {
   const userEmail = useSelector((store) => store.user.user);
   const [isApplied, setIsApplied] = useState(userApplied.includes(userEmail));
@@ -57,6 +58,7 @@ const JobCard = ({
 
       if (response.ok) {
         setIsApplied(!isApplied);
+        fetchJobs();
         alert('Application submitted successfully!');
       } else {
         throw new Error('Failed to apply for the job');

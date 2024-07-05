@@ -13,16 +13,16 @@ const JobsPage = () => {
   const userEmail = useSelector((state) => state.user.user);
   const role = useSelector((state) => state.user.role);
 
-  useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        const response = await axios.get(`${backendServer}/getJobs`);
-        setJobs(response.data);
-      } catch (error) {
-        console.error('Error fetching job data:', error);
-      }
-    };
+  const fetchJobs = async () => {
+    try {
+      const response = await axios.get(`${backendServer}/getJobs`);
+      setJobs(response.data);
+    } catch (error) {
+      console.error('Error fetching job data:', error);
+    }
+  };
 
+  useEffect(() => {
     fetchJobs();
   }, [backendServer]);
 
@@ -64,7 +64,7 @@ const JobsPage = () => {
             <Grid container spacing={3}>
               {filteredJobs.map((job, index) => (
                 <Grid item xs={12} sm={6} md={4} key={index}>
-                  <JobCard {...job} />
+                  <JobCard {...job} fetchJobs={fetchJobs}/>
                 </Grid>
               ))}
             </Grid>
@@ -77,7 +77,7 @@ const JobsPage = () => {
             <Grid container spacing={3}>
               {jobs.map((job, index) => (
                 <Grid item xs={12} sm={6} md={4} key={index}>
-                  <AdminJobCard {...job} />
+                  <AdminJobCard {...job} fetchJobs={fetchJobs} />
                 </Grid>
               ))}
             </Grid>
