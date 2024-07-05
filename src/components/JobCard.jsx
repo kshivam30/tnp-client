@@ -1,3 +1,4 @@
+// src/components/JobCard.jsx
 import React, { useState } from 'react';
 import { Card, CardContent, Button, Typography, Box, Grid } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -6,7 +7,7 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import BusinessIcon from '@mui/icons-material/Business';
 import { styled } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   maxWidth: 345,
@@ -16,32 +17,79 @@ const StyledCard = styled(Card)(({ theme }) => ({
   boxShadow: theme.shadows[1],
 }));
 
+const StatusButton = styled(Button)(({ theme, applied }) => ({
+  backgroundColor: applied ? theme.palette.success.main : theme.palette.error.main,
+  color: theme.palette.common.white,
+  borderRadius: theme.shape.borderRadius,
+  padding: theme.spacing(0.5, 1),
+  textTransform: 'none',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  '&:hover': {
+    backgroundColor: applied ? theme.palette.success.light : theme.palette.error.light,
+    color: '#1976d2', // Light blue color on hover
+  },
+}));
+
 const RegularOfferBanner = styled(Box)(({ theme }) => ({
+  backgroundColor: '#FFEB3B',
   padding: theme.spacing(1),
   textAlign: 'center',
   borderTop: '1px solid #e0e0e0',
 }));
 
 const JobCard = ({
+  jobId,
+  jobTitle,
   companyName,
+  logoUrl,
+  location,
+  jobType,
   CTC,
+  applied,
   DOA,
   eligibleAbove,
-  Applied,
-  logo,
-  jobTitle,
-  jobType,
-  onRemove
+  userDetails,
 }) => {
-  const navigate = useNavigate();
+  const [isApplied, setIsApplied] = useState(applied);
+  const userEmail = useSelector((store) => store.user.user);
+  const data = {
+    userEmail, 
+    companyName,
+  }
+  const handleToggleApply = async () => {
+    console.log(data);
+    setIsApplied(!isApplied);
+    try {
+      const response = await fetch('/jobs/apply', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        alert('Application submitted successfully!');
+      } else {
+        throw new Error('Failed to apply for the job');
+      }
+    } catch (error) {
+      console.error('Error applying for job:', error);
+      alert('Failed to apply for the job.');
+      setIsApplied(applied); // Revert state if there's an error
+    }
+  };
+
   return (
     <StyledCard>
       <CardContent>
         <Grid container spacing={2}>
           <Grid item xs={2} display="flex" justifyContent="center" alignItems="center">
-            {logo ? (
+            {logoUrl ? (
               <img
-                src={logo}
+                src={logoUrl}
                 alt={`${companyName} logo`}
                 style={{ width: 50, height: 50, borderRadius: '50%' }}
               />
@@ -49,19 +97,18 @@ const JobCard = ({
               <BusinessIcon style={{ fontSize: 50, color: '#e0e0e0' }} />
             )}
           </Grid>
-          <Grid item xs={10}>
+          <Grid item xs={6}>
             <Typography variant="h6">{companyName}</Typography>
+          </Grid>
+          <Grid item xs={4} display="flex" justifyContent="flex-end" alignItems="center">
+            <StatusButton applied={isApplied} onClick={handleToggleApply} fullWidth>
+              {isApplied ? 'Applied' : 'Apply'}
+            </StatusButton>
           </Grid>
         </Grid>
         <Typography variant="h5" component="div" sx={{ mt: 1 }}>
           {jobTitle}
         </Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
-          <MonetizationOnIcon fontSize="small" color="primary" />
-          <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>
-            {CTC}
-          </Typography>
-        </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
           <WorkIcon fontSize="small" color="primary" />
           <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>
@@ -69,9 +116,15 @@ const JobCard = ({
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
+          <MonetizationOnIcon fontSize="small" color="primary" />
+          <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>
+            {CTC}
+          </Typography>
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
           <DateRangeIcon fontSize="small" color="primary" />
           <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>
-            {DOA}
+            {DOA || '--'}
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
@@ -79,22 +132,10 @@ const JobCard = ({
             Eligible Above: {eligibleAbove}
           </Typography>
         </Box>
-        {onRemove ? (
-          <RegularOfferBanner>
-            <Button variant="contained" color="secondary" onClick={onRemove}>
-              Remove
-            </Button>
-          </RegularOfferBanner>
-        ) : (
-          <RegularOfferBanner>
-            <Button variant="contained" color="secondary" onClick={() => {
-              navigate("/xyzjobportal")
-            }}>
-              Apply
-            </Button>
-          </RegularOfferBanner>
-        )}
       </CardContent>
+      <RegularOfferBanner>
+        <Typography variant="body2">Regular offer</Typography>
+      </RegularOfferBanner>
     </StyledCard>
   );
 };

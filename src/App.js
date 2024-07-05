@@ -3,7 +3,7 @@ import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import "./App.css";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
-import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import JobsPage from "./pages/JobsPage";
 import HelpPage from "./pages/HelpPage";
 import AdminPage from "./pages/AdminPage";
