@@ -4,59 +4,37 @@ import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import Layout from '../layout/Layout';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-const API_KEY = "AIzaSyDglAXjJWGXJ3ggOSMv25jXfZP5VqdUK-U";
-// Access your API key as an environment variable (see "Set up your API key" above)
-const genAI = new GoogleGenerativeAI(API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+import axios from 'axios';
 
-const companyData = [
-  {
-    jobTitle: 'Frontend Developer',
-    companyName: 'Tech Solutions Inc.',
-    logoUrl: '',
-    location: 'San Francisco, CA',
-    jobType: 'Full-time',
-    role: 'Associate Engineer',
-    salary: '₹4L PA',
-    roundDate: '--',
-    applied: false,
-  },
-  {
-    jobTitle: 'Backend Developer',
-    companyName: 'Data Analytics Corp.',
-    logoUrl: '',
-    location: 'New York, NY',
-    jobType: 'Full-time',
-    role: 'Associate Engineer',
-    salary: '₹4L PA',
-    roundDate: '--',
-    applied: true,
-  },
-  {
-    jobTitle: 'UI/UX Designer',
-    companyName: 'Creative Studio',
-    logoUrl: '',
-    location: 'Remote',
-    jobType: 'Contract',
-    role: 'Associate Engineer',
-    salary: '₹4L PA',
-    roundDate: '--',
-    applied: true,
-  },
-]
-const summarizeCompanyData = (companyData) => {
-  return companyData.map(company => {
-    return `${company.jobTitle} at ${company.companyName}, Location: ${company.location}, Job Type: ${company.jobType}, Role: ${company.role}, Salary: ${company.salary}`;
-  }).join("; ");
-};
-
-const companySummary = summarizeCompanyData(companyData);
 
 const HelpPage = () => {
   const [messages, setMessages] = useState([{ id: 0, sender: 'Support Bot', text: 'Hey "username", how can I help you?', type: 'bot' }]);
   const [input, setInput] = useState('');
   const messagesEndRef = useRef(null);
+  const backendServer = process.env.REACT_APP_BACKEND_SERVER;
+  const [jobs, setJobs] = useState([]);
+  const API_KEY = "AIzaSyDglAXjJWGXJ3ggOSMv25jXfZP5VqdUK-U";
+  const genAI = new GoogleGenerativeAI(API_KEY);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
+  const summarizeCompanyData = (companyData) => {
+    return companyData.map(company => {
+      return `${company.jobTitle} at ${company.companyName}, Job Type: ${company.jobType},Salary: ${company.CTC}`;
+    }).join("; ");
+  };
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const response = await axios.get(`${backendServer}/getJobs`);
+        setJobs(response.data);
+      } catch (error) {
+        console.error('Error fetching job data:', error);
+      }
+    };
+    fetchJobs();
+  }, [backendServer]);
+  const companySummary = summarizeCompanyData(jobs);
   const handleSend = async () => {
     if (input.trim() === '') return;
 
