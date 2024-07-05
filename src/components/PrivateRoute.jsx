@@ -6,10 +6,13 @@ import { Navigate } from 'react-router-dom';
 const PrivateRoute = ({ element }) => {
   const role = useSelector((state) => state.user.role);
 
-  if(role!==""){
-    return element
+  console.log("Current role ", role)
+
+  if (!role) {
+    return <Navigate to="/login" />;
   }
-  return <Navigate to="/login" />
+  
+  return element
 }
 
 export default PrivateRoute;

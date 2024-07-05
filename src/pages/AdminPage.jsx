@@ -94,7 +94,7 @@ const AdminPage = () => {
                 logo={job.logo}
                 jobTitle={job.jobTitle}
                 jobType={job.jobType}
-                onRemove={() => removeJob(index)} // Pass the onRemove function
+                onRemove={() => removeJob(index)} 
               />
             </Grid>
           ))}

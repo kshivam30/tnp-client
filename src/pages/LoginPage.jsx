@@ -109,23 +109,22 @@ const LoginPage = () => {
       // Login logic
       const loginData = { email, password };
       try {
-        
-        const response = await fetch(`${backendServer}/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(loginData),
-        });
-        if (!response.ok) {
-          throw new Error("Failed to sign in");
-        }
+        // const response = await fetch(`${backendServer}/login`, {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(loginData),
+        // });
+        // if (!response.ok) {
+        //   throw new Error("Failed to sign in");
+        // }
 
-        const data = await response.json();
+        // const data = await response.json();
 
-        dispatch(setUser(data.email));
-        dispatch(setUserRole(data.role)); 
-        // await dispatch(loginUser(loginData)).unwrap();
+        // dispatch(setUser(data.email));
+        // dispatch(setUserRole(data.role)); 
+        await dispatch(loginUser(loginData)).unwrap();
         navigate("/");
       } catch (error) {
         setError(error.message);

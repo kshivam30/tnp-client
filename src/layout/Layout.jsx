@@ -46,7 +46,7 @@ const Layout = ({ children }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            MIT Training and Placement Cell
+            BIT Training and Placement Cell
           </Typography>
         </Toolbar>
       </AppBar>
