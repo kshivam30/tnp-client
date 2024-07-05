@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Card, CardContent, Button, Typography, Box, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useSelector } from 'react-redux';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import WorkIcon from '@mui/icons-material/Work';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import DateRangeIcon from '@mui/icons-material/DateRange';
@@ -39,19 +38,19 @@ const AdminJobCard = ({
     logo,
     jobTitle,
     jobType,
-    userApplied
+    userApplied,
+    fetchJobs
 }) => {
     const userEmail = useSelector((store) => store.user.user);
-    const [isApplied, setIsApplied] = useState(userApplied.includes(userEmail));
     const backendServer = process.env.REACT_APP_BACKEND_SERVER;
     const data = {
-        userEmail,
         companyName
     }
+
     const handleRemoveApplication = async () => {
-        //console.log(data);
+        // console.log(data);
         try {
-            const response = await fetch(`${backendServer}/jobs/remove`, {
+            const response = await fetch(`${backendServer}/removeJob`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -60,8 +59,8 @@ const AdminJobCard = ({
             });
 
             if (response.ok) {
-                setIsApplied(false);
                 alert('Application removed successfully!');
+                fetchJobs(); 
             } else {
                 throw new Error('Failed to remove the application');
             }
