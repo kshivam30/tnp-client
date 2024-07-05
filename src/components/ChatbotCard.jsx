@@ -15,8 +15,8 @@ const ChatbotCard = () => {
     <Box
       sx={{
         position: 'fixed',
-        bottom: 32, // Increase padding from bottom
-        right: 32, // Increase padding from right
+        bottom: 50, // Increase padding from bottom
+        right: 50, // Increase padding from right
         display: 'flex',
         alignItems: 'center',
         backgroundColor: 'white',
