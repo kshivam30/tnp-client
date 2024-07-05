@@ -5,6 +5,7 @@ import Layout from '../layout/Layout';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import AdminJobCard from '../components/AdminJobCard';
+import ChatbotCard from '../components/ChatbotCard'; // Import the ChatbotCard component
 
 const JobsPage = () => {
   const [jobs, setJobs] = useState([]);
@@ -24,7 +25,7 @@ const JobsPage = () => {
       setIsLoading(false); 
     }
   };
- 
+
   useEffect(() => {
     fetchJobs();
   }, [backendServer]);
@@ -91,7 +92,6 @@ const JobsPage = () => {
               All Jobs
             </Typography>
             <Grid container spacing={3}>
-
               {isLoading ? (
                 [1, 2, 3, 4, 5, 6].map((skeletonIndex) => (
                   <Grid item xs={12} sm={6} md={4} key={skeletonIndex}>
@@ -114,6 +114,7 @@ const JobsPage = () => {
           </>
         )}
       </Container>
+      <ChatbotCard /> {/* Add the ChatbotCard component */}
     </Layout>
   );
 };
