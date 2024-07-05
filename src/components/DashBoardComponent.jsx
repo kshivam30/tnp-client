@@ -2,16 +2,16 @@ import React from 'react';
 import { Avatar, Box, Typography, Paper, Chip } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 
-const DashboardComponent = () => {
-  const userImage = 'https://via.placeholder.com/150'; // replace with user avatar source or null if not available
+const DashboardComponent = ({ user }) => {
+  const userImage = user.avatarUrl || 'https://via.placeholder.com/150'; // Use user's avatar or fallback to placeholder
 
   return (
     <Paper elevation={3} sx={{ padding: 2, borderRadius: 2 }}>
       <Box sx={{ position: 'relative', mb: 2 }}>
         <Box
           component="img"
-          sx={{ width: '100%', height: 200, objectFit: 'cover', borderRadius: 2 }} // Adjusted height
-          src="https://via.placeholder.com/1500x400" // replace with your image source
+          sx={{ width: '100%', height: 200, objectFit: 'cover', borderRadius: 2 }}
+          src="https://via.placeholder.com/1500x400" // Replace with your actual banner image source
           alt="Banner"
         />
         <Avatar
@@ -25,16 +25,17 @@ const DashboardComponent = () => {
           }}
           src={userImage}
         >
-          {!userImage && <PersonIcon sx={{ fontSize: 40 }} />} {/* Display icon if no image */}
+          {!user.avatarUrl && <PersonIcon sx={{ fontSize: 40 }} />} {/* Display icon if no image */}
         </Avatar>
       </Box>
       <Box sx={{ padding: 2, mt: 4 }}>
-        <Typography variant="h6">Kumar Satyam</Typography>
-        <Typography variant="body2" color="textSecondary">chirag.kr11@gmail.com</Typography>
+        <Typography variant="h6">{user.name}</Typography>
+        <Typography variant="body2" color="textSecondary">{user.email}</Typography>
         <Typography variant="body2" color="textSecondary">
-          Register Number: 20BCE2383 | Batch: 2024 | College: VIT - Placements
+          Registration Number: {user.registrationNumber} 
         </Typography>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
+          {/* Example Chip - Replace with actual user data */}
           <Chip label="Beginner" color="success" />
           <Typography variant="body2">Level 1 of 5</Typography>
         </Box>
