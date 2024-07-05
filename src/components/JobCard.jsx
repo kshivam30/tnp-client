@@ -13,7 +13,11 @@ const StyledCard = styled(Card)(({ theme }) => ({
   margin: theme.spacing(2),
   border: '1px solid #e0e0e0',
   borderRadius: theme.shape.borderRadius,
-  boxShadow: theme.shadows[1],
+  boxShadow: theme.shadows[2],
+  transition: 'transform 0.3s ease-in-out', // Add transition for smooth zoom
+  '&:hover': {
+    transform: 'scale(1.1)', // Scale up the card by 10% on hover
+  },
 }));
 
 const StatusButton = styled(Button)(({ theme, applied }) => ({
