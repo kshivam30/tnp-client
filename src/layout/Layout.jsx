@@ -1,4 +1,3 @@
-// src/components/layout/Layout.js
 import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -59,7 +58,7 @@ const Layout = ({ children }) => {
             edge="start"
             color="inherit"
             aria-label="menu"
-            sx={{ mr: 2 }}
+            sx={{ mr: 2, fontSize: '2rem' }}
             onClick={handleMenuToggle}
           >
             <MenuIcon />
@@ -76,8 +75,9 @@ const Layout = ({ children }) => {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
+              sx={{ fontSize: '2rem' }} // Increase IconButton size
             >
-              <AccountCircle />
+            <AccountCircle sx={{ fontSize: '2rem' }} />
             </IconButton>
             <Menu
               id="profile-menu"
