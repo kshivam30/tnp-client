@@ -152,7 +152,7 @@ const HomePage = () => {
             <Box sx={{ flexGrow: 1 }}>
               {role === "Admin" ? (
                 <Grid container spacing={3}>
-                  <AdminHomePage />
+                  {/* <AdminHomePage /> */}
                 </Grid>
               ) : (
                 <Card sx={{ textAlign: 'center', marginTop: 4 }}>
