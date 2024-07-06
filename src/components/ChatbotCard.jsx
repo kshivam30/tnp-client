@@ -26,7 +26,7 @@ const ChatbotCard = () => {
       }}
     >
       <Avatar
-        src="https://your-logo-url.com/logo.png"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdZ9dExjxM5bzlQbdh_gLIt2cWMOzQmil8TA&s"
         alt="Chatbot Logo"
         sx={{ width: 48, height: 48, mr: 1 }}
       />
