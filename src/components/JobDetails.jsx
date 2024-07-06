@@ -1,74 +1,3 @@
-// import React from "react";
-// import { useLocation } from "react-router-dom";
-// import {
-//   Container,
-//   Typography,
-//   Box,
-//   Button,
-// } from "@mui/material";
-// import Layout from "../layout/Layout";
-
-// const JobDetails = () => {
-//   const location = useLocation();
-//   const {
-//     companyName,
-//     CTC,
-//     DOA,
-//     eligibleAbove,
-//     logo,
-//     jobTitle,
-//     jobType,
-//     userApplied,
-//   } = location.state || {};
-
-//   console.log(location.state); // Debugging line to check the passed state
-
-//   const handleDownload = () => {
-//     // const csvContent =
-//     //   "data:text/csv;charset=utf-8," + userApplied.join("\n");
-//     // const encodedUri = encodeURI(csvContent);
-//     // const link = document.createElement("a");
-//     // link.setAttribute("href", encodedUri);
-//     // link.setAttribute("download", `${companyName}_applicants.csv`);
-//     // document.body.appendChild(link);
-//     // link.click();
-//   };
-
-//   return (
-//     <Layout>
-//       <Box sx={{ my: 4 }}>
-//         <Typography variant="h4" gutterBottom>
-//           {jobTitle}
-//         </Typography>
-//         <Typography variant="h6">{companyName}</Typography>
-//         <Typography variant="body1">CTC: {CTC}</Typography>
-//         <Typography variant="body1">
-//           Date of Application: {new Date(DOA).toLocaleDateString()}
-//         </Typography>
-//         <Typography variant="body1">
-//           Eligible Above: {eligibleAbove}
-//         </Typography>
-//         <Typography variant="body1">Job Type: {jobType}</Typography>
-//       </Box>
-//       <Box sx={{ my: 4 }}>
-//         <Typography variant="h5" gutterBottom>
-//           Users Applied
-//         </Typography>
-//         <Button
-//           onClick={handleDownload}
-//           sx={{ mt: 2 }}
-//           variant="contained"
-//           color="primary"
-//         >
-//           Download List
-//         </Button>
-//       </Box>
-//     </Layout>
-//   );
-// };
-
-// export default JobDetails;
-
 import React, { useState, useEffect } from "react";
 import {
   Typography,
@@ -114,9 +43,55 @@ const JobDetails = () => {
     setSelectedJob(job);
   };
 
-  const handleDownload = () => {
-    // Implement the CSV download logic here if needed
+  const handleDownload = async () => {
+    if (!selectedJob || !selectedJob.userApplied) return;
+  
+    try {
+      // Assuming `selectedJob.userApplied` contains user emails
+      const userEmails = selectedJob.userApplied;
+  
+      // Create an array of promises for fetching user details
+      const userDetailsPromises = userEmails.map((userEmail) =>
+        axios.post(`${backendServer}/getUser`, { email: userEmail })
+      );
+  
+      // Wait for all promises to resolve
+      const userDetailsResponses = await Promise.all(userDetailsPromises);
+  
+      // Extract user data from responses
+      const userDetails = userDetailsResponses.map((response) => response.data);
+  
+      console.log("User Details:", userDetails); // Log user details
+  
+      // Create CSV content
+      const csvContent = [
+        ["Name", "Email", "Registration Number"], // Add more headers as needed
+        ...userDetails.map((user) => [
+          user.user.name,
+          user.user.email,
+          user.user.registrationNumber, // Add more fields as needed
+        ]),
+      ]
+        .map((e) => e.join(","))
+        .join("\n");
+  
+      console.log("CSV Content:", csvContent); // Log CSV content
+  
+      // Create and download the CSV file
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `${selectedJob.companyName}_applicants.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
   };
+  
+  
 
   return (
     <Layout>
