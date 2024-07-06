@@ -58,13 +58,20 @@ const BlogPage = () => {
             minWidth: 200,
             maxWidth: 300,
             padding: 4,
+            marginTop: 5,
             marginLeft: 5,
             marginRight: 5,
             height: "fit-content",
+            backgroundColor: "#f5f5f5"
           }}
         >
           <CardContent>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h6" gutterBottom sx={{
+              margin: 3,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+            }}> 
               Companies
             </Typography>
             {uniqueCompanies.map((company) => (
@@ -90,9 +97,9 @@ const BlogPage = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            width: "80%",
-            padding: "3",
-            margin: "3",
+            width: "60%",
+            padding: 3,
+            margin: 1,
             backgroundColor: "#fff",
             borderRadius: 1,
             
