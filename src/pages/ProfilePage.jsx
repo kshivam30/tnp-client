@@ -33,7 +33,7 @@ const ProfilePage = () => {
 
   const handleSave = async () => {
     try {
-      await axios.post(`${backendServer}/updateUser`, { user });
+      await axios.post(`${backendServer}/updateUser`,  { email: user.email, ...user });
       // Fetch updated user data
       const response = await axios.post(`${backendServer}/getUser`, { email: userEmail });
       setUser(response.data.user);
