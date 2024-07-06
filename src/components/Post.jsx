@@ -1,44 +1,38 @@
-import React, { useState } from 'react';
-import { Card, CardContent, Typography, CardActions, IconButton, Button } from '@mui/material';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import React from 'react';
+import { Card, CardContent, Typography, Box } from '@mui/material';
 
-const Post = ({ author, content, email, company, likes }) => {
-    const [expanded, setExpanded] = useState(false);
-  
-    const handleExpandClick = () => {
-      setExpanded(!expanded);
-    };
-  
-    // Truncate content to 100 words if not expanded
-    const truncatedContent = content.split(' ').slice(0, 100).join(' ');
-    const displayContent = expanded ? content : truncatedContent + '...';
-  
+const Post = ({ author, company, content, createdAt, email, likes }) => {
     return (
-      <Card sx={{ width: '50%', margin: '0 auto', marginBottom: '16px' }}>
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
-            <strong>{author}</strong> <span style={{ fontSize: 'small' }}>selected in</span> <strong>{company}</strong>
-          </Typography>
-          <Typography variant="subtitle1" gutterBottom>
-            {email}
-          </Typography>
-          <Typography variant="body1" paragraph>
-            {displayContent}
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          {content.length > 100 && (
-            <Button onClick={handleExpandClick} color="primary">
-              {expanded ? 'Show Less' : 'Show More'}
-            </Button>
-          )}
-          <IconButton aria-label="like">
-            <FavoriteIcon color="primary" />
-          </IconButton>
-          <Typography>{likes}</Typography>
-        </CardActions>
-      </Card>
+        <Card sx={{ marginBottom: 2, width: '100%', backgroundColor: 'white', color: '#fff' }}>
+            <CardContent>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Typography variant="h6" color="textSecondary" sx={{ fontWeight: 'bold', marginRight: 1 }}>
+                            {author}
+                        </Typography>
+                        <Typography variant="h7" color="textSecondary" >
+                        placed at 
+                        </Typography>
+                        <Typography variant="subtitle1" color="textSecondary" sx={{ fontWeight: 'bold', marginRight: 1 }}>
+                             { company}
+                        </Typography>
+                    </Box>
+                    <Typography variant="body2" color="textSecondary">
+                        {new Date(createdAt).toLocaleString()}
+                    </Typography>
+                </Box>
+                <Typography variant="body2" color="textSecondary">{email}</Typography>
+                <Typography variant="body1" sx={{ marginTop: 1 }} color="textSecondary">
+                    {content}
+                </Typography>
+                <Box sx={{ marginTop: 1 }}>
+                    <Typography variant="body2" color="textSecondary">
+                        Likes: {likes}
+                    </Typography>
+                </Box>
+            </CardContent>
+        </Card>
     );
-  };
-  
-  export default Post;
+};
+
+export default Post;
