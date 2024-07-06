@@ -62,7 +62,7 @@ const BlogPage = () => {
             marginLeft: 5,
             marginRight: 5,
             height: "fit-content",
-            backgroundColor: "#f5f5f5"
+            backgroundColor: "WHITE"
           }}
         >
           <CardContent>
@@ -97,7 +97,7 @@ const BlogPage = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            width: "60%",
+            width: "100%",
             padding: 3,
             margin: 1,
             backgroundColor: "#fff",

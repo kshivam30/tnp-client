@@ -6,8 +6,8 @@ const Post = ({ author, company, content, createdAt, email, likes }) => {
     <Card
     sx={{
       marginBottom: 2,
-      width: "70%",
-      backgroundColor: "#f5f5f5",
+      width: "95%",
+      backgroundColor: "WHITE",
       color: "#111", // Dark black text color
       boxShadow: "0 2px 5px rgba(0, 0, 0, 0.2)", // Adding box shadow for 3D effect
       borderRadius: "8px", // Rounded corners for a softer look
