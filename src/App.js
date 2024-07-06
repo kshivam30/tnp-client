@@ -9,6 +9,7 @@ import HelpPage from "./pages/HelpPage";
 import AddJobPage from "./pages/AddJobPage";
 import PrivateRoute from "./components/PrivateRoute";
 import JobDetails from "./components/JobDetails";
+import BlogPage from "./pages/BlogPage";
 
 const theme = createTheme({
   palette: {
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/help" element={<HelpPage />} />
           <Route path="/addjob" element={<AddJobPage />} />
           <Route path="/jobDetails" element={<JobDetails />} />
+          <Route path="/blogs" element={<BlogPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

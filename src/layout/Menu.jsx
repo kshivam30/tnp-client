@@ -6,6 +6,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import WorkIcon from '@mui/icons-material/Work';
 import LogoutIcon from '@mui/icons-material/Logout';
 import HelpIcon from '@mui/icons-material/Help';
+import ArticleIcon from '@mui/icons-material/Article';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { resetUser } from '../state';
@@ -44,6 +45,10 @@ const Menu = ({ open, onClose }) => {
           <ListItemIcon><WorkIcon /></ListItemIcon>
           <ListItemText primary="Jobs" />
         </ListItem>
+        { role==="Student" && (<ListItem component={Link} to="/blogs" onClick={onClose}>
+          <ListItemIcon><ArticleIcon/></ListItemIcon>
+          <ListItemText primary="Blogs" />
+        </ListItem>)}
         { role==="Student" && (<ListItem component={Link} to="/help" onClick={onClose}>
           <ListItemIcon><HelpIcon/></ListItemIcon>
           <ListItemText primary="Help" />
