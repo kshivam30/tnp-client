@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 import DashboardComponent from "../components/DashBoardComponent";
 import AdminHomePage from "./AdminHomePage";
 import Gauge from "../components/Gauge";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const [user, setUser] = useState(null);
@@ -70,7 +71,7 @@ const HomePage = () => {
       );
     } else {
       return (
-        <>
+        <Box style={{marginBottom: "10px"}}>
           <Typography variant="body2" color="textSecondary">
             Your profile is <strong>{calculateProfileCompletion().toFixed(2)}%</strong> complete.
           </Typography>
@@ -80,10 +81,13 @@ const HomePage = () => {
               <span key={index}><strong>{field}</strong>{index < missingFields.length - 1 ? ', ' : ''}</span>
             ))}
           </Typography>
+          <Link to='/profile'>
           <Button variant="contained" color="primary" sx={{ mt: 2 }}>
             Go to Profile
           </Button>
-        </>
+          </Link>
+         
+        </Box>
       );
     }
   };

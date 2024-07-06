@@ -11,6 +11,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import JobDetails from "./components/JobDetails";
 import BlogPage from "./pages/BlogPage";
 import AddBlogPage from "./pages/AddBlogPage";
+import ProfilePage from "./pages/ProfilePage";
 
 const theme = createTheme({
   palette: {
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="/jobDetails" element={<JobDetails />} />
           <Route path="/blogs" element={<BlogPage />} />
           <Route path="/addBlog" element={<AddBlogPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
