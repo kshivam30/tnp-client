@@ -10,18 +10,19 @@ const Post = ({ author, company, content, createdAt, email, likes }) => {
                         <Typography variant="h6" color="textSecondary" sx={{ fontWeight: 'bold', marginRight: 1 }}>
                             {author}
                         </Typography>
-                        <Typography variant="h7" color="textSecondary" >
-                        placed at 
-                        </Typography>
-                        <Typography variant="subtitle1" color="textSecondary" sx={{ fontWeight: 'bold', marginRight: 1 }}>
-                             { company}
+                        <Typography variant="subtitle1" color="textSecondary">
+                            placed at {company}
                         </Typography>
                     </Box>
-                    <Typography variant="body2" color="textSecondary">
-                        {new Date(createdAt).toLocaleString()}
-                    </Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                        <Typography variant="body2" color="textSecondary">
+                            {new Date(createdAt).toLocaleString()}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary">
+                            {email}
+                        </Typography>
+                    </Box>
                 </Box>
-                <Typography variant="body2" color="textSecondary">{email}</Typography>
                 <Typography variant="body1" sx={{ marginTop: 1 }} color="textSecondary">
                     {content}
                 </Typography>
