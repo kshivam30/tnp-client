@@ -4,13 +4,13 @@ import Post from "../components/Post";
 import { Box, Button, Card, CardContent, Fab, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
   const [uniqueCompanies, setUniqueCompanies] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState(null);
-  const backendServer = process.env.REACT_APP_BACKEND_SERVER || 'http://localhost:5000';
+  const backendServer =
+    process.env.REACT_APP_BACKEND_SERVER || "http://localhost:5000";
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const BlogPage = () => {
 
         // Extract unique company names (case-insensitive)
         const uniqueCompaniesSet = new Set();
-        data.forEach(blog => {
+        data.forEach((blog) => {
           const companyName = blog.company.toLowerCase(); // Normalize to lowercase
           uniqueCompaniesSet.add(companyName);
         });
@@ -32,7 +32,7 @@ const BlogPage = () => {
 
         setBlogs(data); // Set blogs state
       } catch (error) {
-        console.error('Error fetching blogs:', error);
+        console.error("Error fetching blogs:", error);
       }
     };
 
@@ -44,34 +44,25 @@ const BlogPage = () => {
   };
 
   const filteredBlogs = selectedCompany
-    ? blogs.filter((blog) => blog.company.toLowerCase() === selectedCompany.toLowerCase())
+    ? blogs.filter(
+        (blog) => blog.company.toLowerCase() === selectedCompany.toLowerCase()
+      )
     : blogs;
 
   return (
     <Layout>
-      <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-        {/* Blogs Section */}
-        <Box sx={{ flexGrow: 1, marginRight: 2 }}>
-          <div style={{ width: '100%' }}>
-            {filteredBlogs.map((blog) => (
-              <Post
-                key={blog._id}
-                author={blog.name}
-                company={blog.company}
-                content={blog.text}
-                likes={0} // Assuming likes count will be implemented later
-              />
-            ))}
-          </div>
-          <Box sx={{ position: 'fixed', bottom: '16px', right: '16px' }}>
-            <Fab color="primary" aria-label="add blog" onClick={() => navigate('/addBlog')}>
-              <AddIcon />
-            </Fab>
-          </Box>
-        </Box>
-        
+      <Box sx={{ display: "flex", flexDirection: "row" }}>
         {/* Company Cards Section */}
-        <Card sx={{ minWidth: 200, maxWidth: 300, padding: 2 }}>
+        <Card
+          sx={{
+            minWidth: 200,
+            maxWidth: 300,
+            padding: 4,
+            marginLeft: 5,
+            marginRight: 5,
+            height: "fit-content",
+          }}
+        >
           <CardContent>
             <Typography variant="h6" gutterBottom>
               Companies
@@ -79,7 +70,11 @@ const BlogPage = () => {
             {uniqueCompanies.map((company) => (
               <Button
                 key={company}
-                variant={company.toLowerCase() === selectedCompany?.toLowerCase() ? "contained" : "outlined"}
+                variant={
+                  company.toLowerCase() === selectedCompany?.toLowerCase()
+                    ? "contained"
+                    : "outlined"
+                }
                 onClick={() => handleCompanyClick(company)}
                 fullWidth
                 sx={{ marginBottom: 1 }}
@@ -89,6 +84,42 @@ const BlogPage = () => {
             ))}
           </CardContent>
         </Card>
+        {/* Blogs Section */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "80%",
+            padding: "3",
+            margin: "3",
+            backgroundColor: "#fff",
+            borderRadius: 1,
+            
+          }}
+        >
+          {filteredBlogs.map((blog) => (
+            
+            <Post
+              key={blog._id}
+              author={blog.name}
+              company={blog.company}
+              content={blog.text}
+              createdAt={blog.createdAt} // Pass createdAt to Post component
+              email={blog.email} // Pass email to Post component
+              likes={0} // Placeholder for likes count
+            />
+          ))}
+          <Box sx={{ position: "fixed", bottom: "16px", right: "16px" }}>
+            <Fab
+              color="primary"
+              aria-label="add blog"
+              onClick={() => navigate("/addBlog")}
+            >
+              <AddIcon />
+            </Fab>
+          </Box>
+        </Box>
       </Box>
     </Layout>
   );
