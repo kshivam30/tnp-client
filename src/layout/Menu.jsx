@@ -10,6 +10,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { resetUser } from '../state';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'; 
 
 const Menu = ({ open, onClose }) => {
   const dispatch = useDispatch();
@@ -56,7 +57,8 @@ const Menu = ({ open, onClose }) => {
       <ListItemText primaryTypographyProps={{ fontSize: '1.2rem', textDecoration: 'none', color: 'rgba(0, 0, 0, 0.60)' }} primary="Help" />
     </ListItem>)}
     { role==="Admin" && (<ListItem component={Link} to="/addjob" onClick={onClose}>
-      <ListItemIcon><WorkIcon style={{ fontSize: 30 }}/></ListItemIcon>
+      {/* <ListItemIcon><WorkIcon style={{ fontSize: 30 }}/></ListItemIcon> */}
+      <ListItemIcon><AddCircleOutlineIcon style={{ fontSize: 30 }}/></ListItemIcon>
       <ListItemText primaryTypographyProps={{ fontSize: '1.2rem', textDecoration: 'none', color: 'rgba(0, 0, 0, 0.60)' }} primary="Add Job" />
     </ListItem>)}
     <ListItem component={Link} to="/login" onClick={handleLogout}>

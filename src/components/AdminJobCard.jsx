@@ -6,6 +6,7 @@ import {
   Typography,
   Box,
   Grid,
+  Container,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
@@ -54,10 +55,10 @@ const AdminJobCard = ({
   const data = { companyName };
 
   const handleRemoveApplication = async (e) => {
-    e.stopPropagation(); // Prevent navigation on button click
+    // e.stopPropagation(); // Prevent navigation on button click
     try {
       const response = await fetch(`${backendServer}/removeJob`, {
-        method: "DELETE",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -77,21 +78,7 @@ const AdminJobCard = ({
   };
 
   return (
-    <Link
-      to={{
-        pathname: "/jobDetails",
-        state: {
-          companyName,
-          CTC,
-          DOA,
-          eligibleAbove,
-          logo,
-          jobTitle,
-          jobType,
-          userApplied,
-        },
-      }}
-      style={{ textDecoration: "none", color: "inherit" }}
+    <Container
     >
       <StyledCard>
         <CardContent>
@@ -156,7 +143,7 @@ const AdminJobCard = ({
           </Box>
         </CardContent>
       </StyledCard>
-    </Link>
+    </Container>
   );
 };
 
