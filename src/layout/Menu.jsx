@@ -24,45 +24,48 @@ const Menu = ({ open, onClose }) => {
 
   return (
     <Drawer
-      variant="temporary"
-      open={open}
-      onClose={onClose}
-      sx={{
-        width: 240,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: 240,
-          boxSizing: 'border-box',
-        },
-      }}
-    >
-      <List>
-        <ListItem component={Link} to="/" onClick={onClose}>
-          <ListItemIcon><HomeIcon /></ListItemIcon>
-          <ListItemText primary="Home" />
-        </ListItem>
-        <ListItem component={Link} to="/jobs" onClick={onClose}>
-          <ListItemIcon><WorkIcon /></ListItemIcon>
-          <ListItemText primary="Jobs" />
-        </ListItem>
-        { role==="Student" && (<ListItem component={Link} to="/blogs" onClick={onClose}>
-          <ListItemIcon><ArticleIcon/></ListItemIcon>
-          <ListItemText primary="Blogs" />
-        </ListItem>)}
-        { role==="Student" && (<ListItem component={Link} to="/help" onClick={onClose}>
-          <ListItemIcon><HelpIcon/></ListItemIcon>
-          <ListItemText primary="Help" />
-        </ListItem>)}
-       { role==="Admin" && (<ListItem component={Link} to="/addjob" onClick={onClose}>
-          <ListItemIcon><WorkIcon/></ListItemIcon>
-          <ListItemText primary="Add Job" />
-        </ListItem>)}
-        <ListItem component={Link} to="/login" onClick={handleLogout}>
-          <ListItemIcon><LogoutIcon/></ListItemIcon>
-          <ListItemText primary="Logout" />
-        </ListItem>
-      </List>
-    </Drawer>
+  variant="temporary"
+  open={open}
+  onClose={onClose}
+  sx={{
+    width: 240,
+    flexShrink: 0,
+    '& .MuiDrawer-paper': {
+      width: 240,
+      boxSizing: 'border-box',
+      display: 'flex',
+        // Center items vertically
+    },
+  }}
+>
+  <List>
+    <ListItem component={Link} to="/" onClick={onClose}>
+      <ListItemIcon><HomeIcon style={{ fontSize: 30 }}/></ListItemIcon>
+      <ListItemText primaryTypographyProps={{ fontSize: '1.2rem', textDecoration: 'none', color: 'rgba(0, 0, 0, 0.60)' }}  primary="Home" />
+    </ListItem>
+    <ListItem component={Link} to="/jobs" onClick={onClose}>
+      <ListItemIcon><WorkIcon style={{ fontSize: 30 }} /></ListItemIcon>
+      <ListItemText primaryTypographyProps={{ fontSize: '1.2rem' , textDecoration: 'none', color: 'rgba(0, 0, 0, 0.60)'}} primary="Jobs" />
+    </ListItem>
+    { role==="Student" && (<ListItem component={Link} to="/blogs" onClick={onClose}>
+      <ListItemIcon><ArticleIcon style={{ fontSize: 30 }}/></ListItemIcon>
+      <ListItemText primaryTypographyProps={{ fontSize: '1.2rem', textDecoration: 'none', color: 'rgba(0, 0, 0, 0.60)' }} primary="Blogs" />
+    </ListItem>)}
+    { role==="Student" && (<ListItem component={Link} to="/help" onClick={onClose}>
+      <ListItemIcon><HelpIcon style={{ fontSize: 30 }}/></ListItemIcon>
+      <ListItemText primaryTypographyProps={{ fontSize: '1.2rem', textDecoration: 'none', color: 'rgba(0, 0, 0, 0.60)' }} primary="Help" />
+    </ListItem>)}
+    { role==="Admin" && (<ListItem component={Link} to="/addjob" onClick={onClose}>
+      <ListItemIcon><WorkIcon style={{ fontSize: 30 }}/></ListItemIcon>
+      <ListItemText primaryTypographyProps={{ fontSize: '1.2rem', textDecoration: 'none', color: 'rgba(0, 0, 0, 0.60)' }} primary="Add Job" />
+    </ListItem>)}
+    <ListItem component={Link} to="/login" onClick={handleLogout}>
+      <ListItemIcon><LogoutIcon style={{ fontSize: 30 }}/></ListItemIcon>
+      <ListItemText primaryTypographyProps={{ fontSize: '1.2rem', textDecoration: 'none', color: 'rgba(0, 0, 0, 0.60)' }} primary="Logout" />
+    </ListItem>
+  </List>
+</Drawer>
+
   );
 };
 
