@@ -1,65 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Typography, Grid, Button, Box } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
-import JobCard from '../components/JobCard'; // Import the JobCard component
+import JobCard from '../components/JobCard'; 
 import Layout from '../layout/Layout';
-
-const initialJobs = [
-  {
-    companyName: "Example Company",
-    CTC: "10 LPA",
-    DOA: "2024-07-06",
-    eligibleAbove: "7 CGPA",
-    Applied: true,
-    logo: "",
-    jobTitle: "Software Dev",
-    jobType: "Full-Time"
-  },
-  {
-    companyName: "Example Company",
-    CTC: "10 LPA",
-    DOA: "2024-07-06",
-    eligibleAbove: "7 CGPA",
-    Applied: true,
-    logo: "",
-    jobTitle: "Software Dev",
-    jobType: "Full-Time"
-  },
-  {
-    companyName: "Example Company",
-    CTC: "10 LPA",
-    DOA: "2024-07-06",
-    eligibleAbove: "7 CGPA",
-    Applied: true,
-    logo: "",
-    jobTitle: "Software Dev",
-    jobType: "Full-Time"
-  },
-  {
-    companyName: "Example Company",
-    CTC: "10 LPA",
-    DOA: "2024-07-06",
-    eligibleAbove: "7 CGPA",
-    Applied: true,
-    logo: "",
-    jobTitle: "Software Dev",
-    jobType: "Full-Time"
-  },
-  {
-    companyName: "Example Company",
-    CTC: "10 LPA",
-    DOA: "2024-07-06",
-    eligibleAbove: "7 CGPA",
-    Applied: true,
-    logo: "",
-    jobTitle: "Software Dev",
-    jobType: "Full-Time"
-  }
-];
+import axios from 'axios';
 
 const AdminHomePage = () => {
-  const [jobs, setJobs] = useState(initialJobs);
+  const [jobs, setJobs] = useState([]);
+  const backendServer = process.env.REACT_APP_BACKEND_SERVER;
+
+  const fetchJobs = async () => {
+    try {
+      const response = await axios.get(`${backendServer}/getJobs`);
+      setJobs(response.data);
+    } catch (error) {
+      console.error('Error fetching job data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchJobs();
+  }, [backendServer]);
 
   const removeJob = (index) => {
     const updatedJobs = jobs.filter((job, i) => i !== index);
@@ -68,7 +30,7 @@ const AdminHomePage = () => {
 
   return (
       <Container>
-        {/* <Typography variant="h4" gutterBottom>Admin Dashboard</Typography>
+        <Typography variant="h4" gutterBottom>Admin Dashboard</Typography>
         <Box display="flex" justifyContent="flex-end" mb={2}>
           <Button
             variant="contained"
@@ -81,7 +43,7 @@ const AdminHomePage = () => {
           </Button>
         </Box>
         <Typography variant="h5" gutterBottom>Job List</Typography>
-        <Grid container spacing={3}>
+        {/* <Grid container spacing={3}>
           {jobs.map((job, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <JobCard
