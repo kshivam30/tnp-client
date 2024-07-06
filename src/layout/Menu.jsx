@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { resetUser } from '../state';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'; 
+import AnnouncementOutlinedIcon from '@mui/icons-material/AnnouncementOutlined';
 
 const Menu = ({ open, onClose }) => {
   const dispatch = useDispatch();
@@ -61,6 +62,11 @@ const Menu = ({ open, onClose }) => {
       <ListItemIcon><AddCircleOutlineIcon style={{ fontSize: 30 }}/></ListItemIcon>
       <ListItemText primaryTypographyProps={{ fontSize: '1.2rem', textDecoration: 'none', color: 'rgba(0, 0, 0, 0.60)' }} primary="Add Job" />
     </ListItem>)}
+    <ListItem component={Link} to="/announcements" onClick={onClose}>
+      {/* <ListItemIcon><WorkIcon style={{ fontSize: 30 }}/></ListItemIcon> */}
+      <ListItemIcon><AnnouncementOutlinedIcon style={{ fontSize: 30 }}/></ListItemIcon>
+      <ListItemText primaryTypographyProps={{ fontSize: '1.2rem', textDecoration: 'none', color: 'rgba(0, 0, 0, 0.60)' }} primary="Announcements" />
+    </ListItem>
     <ListItem component={Link} to="/login" onClick={handleLogout}>
       <ListItemIcon><LogoutIcon style={{ fontSize: 30 }}/></ListItemIcon>
       <ListItemText primaryTypographyProps={{ fontSize: '1.2rem', textDecoration: 'none', color: 'rgba(0, 0, 0, 0.60)' }} primary="Logout" />

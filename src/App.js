@@ -12,6 +12,7 @@ import JobDetails from "./components/JobDetails";
 import BlogPage from "./pages/BlogPage";
 import AddBlogPage from "./pages/AddBlogPage";
 import ProfilePage from "./pages/ProfilePage";
+import AnnouncementsPage from "./pages/AnnouncementsPage";
 
 const theme = createTheme({
   palette: {
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/blogs" element={<BlogPage />} />
           <Route path="/addBlog" element={<AddBlogPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/announcements" element={<AnnouncementsPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

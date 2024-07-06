@@ -54,28 +54,7 @@ const DashboardComponent = ({ user }) => {
               {user.registrationNumber}
             </Typography>
           </Typography>{" "}
-          |{" "}
-          <Typography component="span" variant="body2">
-            <Typography component="span" variant="body2">
-              Role:
-            </Typography>{" "}
-            <Typography component="span" sx={{ fontWeight: "bold" }}>
-              {user.role}
-            </Typography>
-          </Typography>
         </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            mt: 2,
-          }}
-        >
-          {/* Example Chip - Replace with actual user data */}
-          <Chip label="Beginner" color="success" />
-          <Typography variant="body2">Level 1 of 5</Typography>
-        </Box>
       </Box>
     </Paper>
   );

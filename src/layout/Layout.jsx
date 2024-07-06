@@ -75,7 +75,7 @@ const Layout = ({ children }) => {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
-              sx={{ fontSize: '2rem' }} // Increase IconButton size
+              sx={{ fontSize: '2rem' }} 
             >
             <AccountCircle sx={{ fontSize: '2rem' }} />
             </IconButton>
@@ -88,7 +88,7 @@ const Layout = ({ children }) => {
               open={Boolean(profileAnchorEl)}
               onClose={handleProfileMenuClose}
             >
-              <MenuItem onClick={handleProfileMenuClose}>Priyanshu</MenuItem>
+              <MenuItem onClick={handleProfileMenuClose}>Profile</MenuItem>
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </div>
