@@ -4,7 +4,7 @@ This repository contains the client-side code for the Training and Placement Por
 
 ## Backend Repository
 
-The client application relies on a backend server for data and authentication. You can find the backend repository here: [TNP-Server Repository](https://github.com/yourusername/tnp-server)
+The client application relies on a backend server for data and authentication. You can find the backend repository here: [TNP-Server Repository](https://github.com/kshivam30/tnp-server)
 
 ## Features
 
